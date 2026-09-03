@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KefiYo — Airy Minimal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Alata&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wasabi:#929433;
+  --pink:#f7c0bf;
+  --matcha:#d8d79a;
+  --cream:#fdfbf2;
+  --ink:#1d1c11;
+  --deep:#465b06;
+  --white:#ffffff;
+  --line:rgba(29,28,17,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:'Alata',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16px;line-height:1.6}
+.d{font-family:'Shrikhand',cursive;font-weight:400}
+img,video{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+section{padding:clamp(72px,10vw,150px) 0}
+.lede{font-size:clamp(15px,1.4vw,18px);color:rgba(29,28,17,.62);max-width:52ch;line-height:1.7}
+.eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--wasabi)}
+.eyebrow::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pink);margin-right:10px;vertical-align:1px}
+h2{font-family:'Shrikhand',cursive;font-weight:400;font-size:clamp(30px,4.6vw,60px);line-height:1.02;letter-spacing:-.01em}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--deep);color:var(--cream);border-radius:999px;padding:15px 30px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;transition:.25s}
+.btn:hover{background:var(--wasabi)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--cream);border-color:var(--wasabi)}
+
+/* nav */
+header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.navin{display:flex;align-items:center;justify-content:space-between;height:78px}
+.logo{font-family:'Shrikhand',cursive;font-size:26px;color:var(--deep);display:inline-flex;align-items:center}
+.navlinks{display:none;gap:34px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:rgba(29,28,17,.7)}
+.navlinks a:hover{color:var(--deep)}
+.navcta{display:none}
+@media(min-width:920px){.navlinks{display:flex}.navcta{display:inline-flex}}
+@media(max-width:919px){.navin{justify-content:center}}
+
+/* hero */
+.hero{padding:clamp(28px,5vw,64px) 0 0}
+.heroin{display:grid;gap:clamp(24px,4vw,54px);align-items:end}
+.herotop{display:grid;gap:20px;justify-items:center;text-align:center}
+.hero h1{font-family:'Shrikhand',cursive;font-size:clamp(42px,9vw,120px);line-height:.95;letter-spacing:-.02em;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--wasabi)}
+.herostage{position:relative;border-radius:36px;overflow:hidden;height:clamp(360px,62vh,620px);background:var(--matcha)}
+.herostage video{filter:saturate(1.05)}
+.floatpill{position:absolute;background:var(--white);border-radius:999px;padding:12px 20px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 12px 30px rgba(29,28,17,.14)}
+.fp1{left:24px;top:24px;background:var(--matcha);color:var(--ink)}
+.fp2{right:24px;bottom:24px;background:var(--pink)}
+.strip{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 34px;padding-top:26px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(29,28,17,.5)}
+
+/* flavours */
+.flavhead{display:grid;gap:14px;justify-items:center;text-align:center;margin-bottom:clamp(32px,5vw,64px)}
+.flavgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,28px)}
+@media(min-width:900px){.flavgrid{grid-template-columns:repeat(4,1fr)}}
+.flav{display:grid;gap:14px}
+.flav .ph{position:relative;aspect-ratio:3/4;border-radius:26px;overflow:hidden;background:var(--cream)}
+.flav .ph img{transition:transform .6s ease}
+.flav:hover .ph img{transform:scale(1.05)}
+.flav:nth-child(2) .ph{background:var(--pink)}
+.flav:nth-child(3) .ph{background:var(--matcha)}
+.tag{position:absolute;top:14px;left:14px;z-index:2;border-radius:999px;padding:7px 14px;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase}
+.t1{background:var(--pink);color:var(--ink)}
+.t2{background:var(--wasabi);color:var(--cream)}
+.t3{background:var(--deep);color:var(--cream)}
+.t4{background:var(--matcha);color:var(--ink)}
+.flav h3{font-family:'Shrikhand',cursive;font-weight:400;font-size:clamp(17px,1.7vw,23px)}
+.flav p{font-size:13.5px;color:rgba(29,28,17,.58);line-height:1.6}
+
+/* quiet band */
+.band{background:var(--cream)}
+.bandin{display:grid;gap:clamp(26px,4vw,60px);align-items:center}
+@media(min-width:900px){.bandin{grid-template-columns:1.05fr .95fr}}
+.bandmedia{border-radius:32px;overflow:hidden;aspect-ratio:4/3;background:var(--matcha)}
+.bandtext{display:grid;gap:20px}
+.tickers{display:grid;gap:12px;padding-top:8px}
+.tick{display:flex;gap:14px;align-items:center;border-top:1px solid var(--line);padding-top:14px;font-size:14px;color:rgba(29,28,17,.68)}
+.tick b{font-family:'Shrikhand',cursive;font-weight:400;font-size:13px;width:40px;height:40px;min-width:40px;display:grid;place-items:center;border-radius:50%}
+.tick:nth-child(1) b{background:var(--matcha);color:var(--ink)}
+.tick:nth-child(2) b{background:var(--pink);color:var(--ink)}
+.tick:nth-child(3) b{background:var(--wasabi);color:var(--cream)}
+
+/* menu */
+#menu{background:color-mix(in srgb, var(--matcha) 16%, var(--white))}
+.menubar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:clamp(28px,4vw,52px)}
+.chip{border:1px solid var(--line);border-radius:999px;padding:9px 20px 9px 16px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(29,28,17,.65);cursor:pointer;transition:.2s;background:var(--white);display:inline-flex;align-items:center;gap:9px}
+.chip svg{width:17px;height:17px;flex:none}
+.menubar .chip:nth-child(1) svg{color:var(--pink)}
+.menubar .chip:nth-child(2) svg{color:var(--wasabi)}
+.menubar .chip:nth-child(3) svg{color:var(--deep)}
+.menubar .chip:nth-child(4) svg{color:var(--matcha)}
+.menubar .chip:nth-child(5) svg{color:var(--pink)}
+.chip.on svg{color:var(--cream)}
+.chip:hover{border-color:var(--wasabi);color:var(--deep)}
+.chip.on{background:var(--wasabi);color:var(--cream);border-color:var(--wasabi)}
+.menu{display:grid;gap:0}
+.row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:22px 8px;border-top:1px solid color-mix(in srgb, var(--ink) 12%, transparent);transition:.2s;border-radius:14px}
+.row:last-child{border-bottom:1px solid color-mix(in srgb, var(--ink) 12%, transparent)}
+.row:hover{background:rgba(255,255,255,.85);padding-left:18px}
+.row h4{font-size:17px;font-weight:400}
+.row h4::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:12px;vertical-align:2px}
+.row:nth-child(3n+1) h4::before{background:var(--pink)}
+.row:nth-child(3n+2) h4::before{background:var(--matcha)}
+.row:nth-child(3n) h4::before{background:var(--wasabi)}
+.row span{font-size:13px;color:rgba(29,28,17,.5);display:block;margin-top:4px}
+.row h4 .badge{display:inline-block;background:var(--pink);color:var(--ink);border-radius:999px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;margin-left:10px;vertical-align:2px;line-height:1.4;margin-top:0}
+.price{font-family:'Shrikhand',cursive;font-weight:400;color:var(--wasabi);font-size:16px}
+.menufoot{display:flex;justify-content:center;padding-top:clamp(28px,4vw,48px)}
+
+/* insta */
+.igrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:800px){.igrid{grid-template-columns:repeat(4,1fr)}}
+.igrid > *{aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:var(--cream)}
+
+/* gift card */
+.gift{background:var(--deep);color:var(--cream);border-radius:clamp(28px,4vw,48px);padding:clamp(30px,5vw,72px);display:grid;gap:clamp(26px,4vw,56px)}
+@media(min-width:900px){.gift{grid-template-columns:1fr 1fr;align-items:center}}
+.gift h2{color:var(--cream)}
+.gift p{color:rgba(253,251,242,.72);max-width:44ch}
+.cardart{border-radius:26px;overflow:hidden;aspect-ratio:16/10;background:var(--matcha);position:relative;display:grid;place-items:center}
+.cardart .amt{font-family:'Shrikhand',cursive;font-size:clamp(34px,5vw,64px);color:var(--deep)}
+.vals{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.val{border:1px solid rgba(253,251,242,.3);border-radius:999px;padding:12px 22px;font-size:14px;cursor:pointer;transition:.2s}
+.val:hover{border-color:var(--matcha)}
+.val.on{background:var(--matcha);color:var(--deep);border-color:var(--matcha)}
+.giftbtn{background:var(--pink);color:var(--ink);margin-top:20px}
+.giftbtn:hover{background:var(--matcha)}
+
+/* final */
+.final{text-align:center;display:grid;gap:22px;justify-items:center}
+.final h2{font-size:clamp(34px,6.5vw,84px);max-width:14ch}
+footer{border-top:1px solid var(--line);padding:38px 0;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12.5px;color:rgba(29,28,17,.5);letter-spacing:.08em}
+
+/* mobile island */
+.island{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:90;display:flex;gap:6px;background:rgba(29,28,17,.94);backdrop-filter:blur(10px);border-radius:999px;padding:7px;box-shadow:0 14px 34px rgba(29,28,17,.28)}
+.island a{color:var(--cream);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;padding:11px 15px;border-radius:999px}
+.island a.hi{background:var(--pink);color:var(--ink)}
+@media(min-width:920px){.island{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap navin">
+    <a href="#" class="logo"><img src="logo.png" alt="KefiYo" style="height:32px;width:auto;display:block"></a>
+    <nav class="navlinks">
+      <a href="#flavours">Flavours</a>
+      <a href="#menu">Menu</a>
+      <a href="#story">Our Story</a>
+      <a href="#gift">Gift Cards</a>
+    </nav>
+    <a href="#gift" class="btn navcta">Buy a gift card</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap heroin">
+    <div class="herotop">
+      <span class="eyebrow">Frozen yogurt · Açaí · Matcha · Leeds</span>
+      <h1>Where everyday tastes <em>a little better</em></h1>
+      <p class="lede" style="text-align:center">Light, fresh and made to order. Swirled, topped and taken slowly.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <a href="#menu" class="btn">See the menu</a>
+        <a href="#gift" class="btn ghost">Gift a swirl</a>
+      </div>
+    </div>
+    <div class="herostage">
+      <video autoplay muted loop playsinline
+        src="hero-video.mp4"></video>
+      <div class="floatpill fp1">Made fresh daily</div>
+      <div class="floatpill fp2">Say hi 👋 Leeds</div>
+    </div>
+    <div class="strip">
+      <span>Live cultures</span><span>Vegan options</span><span>Ceremonial matcha</span><span>No bad days</span>
+    </div>
+  </div>
+</section>
+
+<!-- FLAVOURS -->
+<section id="flavours">
+  <div class="wrap">
+    <div class="flavhead">
+      <span class="eyebrow">The line-up</span>
+      <h2>Four ways to swirl</h2>
+      <p class="lede" style="text-align:center">A short menu, done properly. Rotating specials every week.</p>
+    </div>
+    <div class="flavgrid">
+      <article class="flav">
+        <div class="ph"><span class="tag t1">Classic</span><img src="flavour-original.jpg" alt="Original frozen yogurt"></div>
+        <h3>Original Froyo</h3>
+        <p>Tangy, live-cultured and lighter than ice cream.</p>
+      </article>
+      <article class="flav">
+        <div class="ph"><span class="tag t2">Fruit</span><img src="flavour-acai.jpg" alt="Açaí bowl"></div>
+        <h3>Açaí Bowls</h3>
+        <p>Deep purple base, fruit, granola, honey drizzle.</p>
+      </article>
+      <article class="flav">
+        <div class="ph"><span class="tag t3">Ceremonial</span><img src="flavour-matcha.jpg" alt="Matcha"></div>
+        <h3>Matcha</h3>
+        <p>Ceremonial grade, iced or hot, softly sweet.</p>
+      </article>
+      <article class="flav">
+        <div class="ph"><span class="tag t4">Plant-based</span><img src="flavour-vegan.jpg" alt="Vegan froyo"></div>
+        <h3>Vegan &amp; Smoothies</h3>
+        <p>Coconut base swirls and blended fruit cups.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STORY BAND -->
+<section id="story" class="band">
+  <div class="wrap bandin">
+    <div class="bandmedia">
+      <video autoplay muted loop playsinline
+        src="story-video.mp4"></video>
+    </div>
+    <div class="bandtext">
+      <span class="eyebrow">Why KefiYo</span>
+      <h2>No bad days. Just badly needed KefiYo.</h2>
+      <p class="lede">Kefi means good spirits — the joy you feel when something simple is done well. That's the whole idea behind the counter.</p>
+      <div class="tickers">
+        <div class="tick"><b>01</b><span>Real yogurt, live cultures, nothing artificial.</span></div>
+        <div class="tick"><b>02</b><span>Toppings prepped fresh each morning in-store.</span></div>
+        <div class="tick"><b>03</b><span>Built for lingering — good light, good seats.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="wrap">
+    <div class="flavhead">
+      <span class="eyebrow">Full menu</span>
+      <h2>Everything on the counter</h2>
+    </div>
+    <div class="menubar">
+      <span class="chip on">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 0-5.2 2-5.2 4.5S9 12 12 12s5.2-2 5.2-4.5S15 3 12 3Z"/><path d="M8.3 12c-.3 4 1.6 7.7 3.7 9 2.1-1.3 4-5 3.7-9"/></svg>
+        Froyo
+      </span>
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-16 0Z"/><circle cx="9" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="6.3" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="8" r="1" fill="currentColor" stroke="none"/></svg>
+        Açaí
+      </span>
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h11v6a5.5 5.5 0 0 1-5.5 5.5h-0a5.5 5.5 0 0 1-5.5-5.5V8Z"/><path d="M16 9.2h1.3a2.3 2.3 0 0 1 0 4.6H16"/><path d="M9.3 8c-.2-1.8.8-2.9 2.5-3.7-.2 1.8-.9 2.9-2.5 3.7Z" fill="currentColor" stroke="none"/></svg>
+        Matcha &amp; Coffee
+      </span>
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 8h9.6l-1.1 11H8.3L7.2 8Z"/><path d="M14 8V3.2M14 3.2l1.6 2"/><path d="M6.2 8h11.6"/></svg>
+        Smoothies
+      </span>
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="4" y="5" width="8" height="2.4" rx="1.2" transform="rotate(-25 8 6.2)"/><rect x="13" y="4" width="7" height="2.2" rx="1.1" transform="rotate(20 16.5 5.1)"/><circle cx="6.5" cy="15" r="1.6"/><rect x="12" y="13" width="7" height="2.2" rx="1.1" transform="rotate(-15 15.5 14.1)"/><circle cx="18" cy="18" r="1.6"/></svg>
+        Toppings
+      </span>
+    </div>
+    <div class="menu">
+      <div class="row"><div><h4>Classic Swirl</h4><span>Original froyo, two toppings</span></div><div class="price">£5.20</div></div>
+      <div class="row"><div><h4>Signature Bowl<span class="badge">Most loved</span></h4><span>Froyo, fruit, granola, sauce</span></div><div class="price">£6.80</div></div>
+      <div class="row"><div><h4>Vegan Coconut Swirl</h4><span>Dairy-free base, two toppings</span></div><div class="price">£5.60</div></div>
+      <div class="row"><div><h4>Açaí Bowl</h4><span>Banana, berries, granola, honey</span></div><div class="price">£7.50</div></div>
+      <div class="row"><div><h4>Iced Matcha Latte</h4><span>Ceremonial grade, oat or dairy</span></div><div class="price">£4.20</div></div>
+      <div class="row"><div><h4>Fruit Smoothie</h4><span>Mango, berry or green</span></div><div class="price">£5.00</div></div>
+    </div>
+    <div class="menufoot"><a href="#" class="btn ghost">View the full menu page</a></div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="flavhead">
+      <span class="eyebrow">@kefiyo</span>
+      <h2>Seen in Leeds</h2>
+    </div>
+    <div class="igrid">
+      <div><video autoplay muted loop playsinline src="instagram-1.mp4"></video></div>
+      <div><video autoplay muted loop playsinline src="instagram-2.mp4"></video></div>
+      <div><video autoplay muted loop playsinline src="instagram-3.mp4"></video></div>
+      <div><video autoplay muted loop playsinline src="instagram-4.mp4"></video></div>
+    </div>
+  </div>
+</section>
+
+<!-- GIFT CARD -->
+<section id="gift" style="padding-top:0">
+  <div class="wrap">
+    <div class="gift">
+      <div>
+        <span class="eyebrow" style="color:var(--matcha)">New</span>
+        <h2 style="margin:12px 0 16px">Give a good mood</h2>
+        <p>Digital gift cards, delivered by email in seconds. Spend it on anything at the counter.</p>
+        <div class="vals">
+          <span class="val">£10</span>
+          <span class="val on">£25</span>
+          <span class="val">£50</span>
+          <span class="val">£75</span>
+          <span class="val">Custom</span>
+        </div>
+        <a href="#" class="btn giftbtn">Checkout — £25</a>
+      </div>
+      <div class="cardart">
+        <span class="amt">£25</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section style="padding-top:0">
+  <div class="wrap final">
+    <span class="eyebrow">Come say hi</span>
+    <h2>Your main-character moment is one swirl away</h2>
+    <p class="lede" style="text-align:center">Merrion Street, Leeds · Open daily 11am – 9pm</p>
+    <a href="#" class="btn">Get directions</a>
+  </div>
+  <div class="wrap"><footer><span>© KefiYo 2026</span><span>Instagram · TikTok · Contact</span></footer></div>
+</section>
+
+<nav class="island">
+  <a href="#menu">Menu</a>
+  <a href="#flavours">Flavours</a>
+  <a href="#gift" class="hi">Gift card</a>
+</nav>
+
+<script>
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+document.querySelectorAll('.val').forEach(v=>v.onclick=()=>{document.querySelectorAll('.val').forEach(x=>x.classList.remove('on'));v.classList.add('on');
+  const t=v.textContent.trim();document.querySelector('.cardart .amt').textContent=t==='Custom'?'£ ??':t;
+  document.querySelector('.giftbtn').textContent='Checkout — '+t;});
+</script>
+</body>
+</html>
