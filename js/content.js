@@ -193,9 +193,9 @@ var CONTENT = {
   /* Add MP3 files to assets/audio/ and list them here.
      "cover" is optional — leave "" for a plain numbered label. */
   playlist: [
-    { title: "Track One", artist: "KefiYo Radio", src: "assets/audio/track-1.mp3", cover: "" },
-    { title: "Track Two", artist: "KefiYo Radio", src: "assets/audio/track-2.mp3", cover: "" },
-    { title: "Track Three", artist: "KefiYo Radio", src: "assets/audio/track-3.mp3", cover: "" }
+    { title: "Spin the Swirl", artist: "KefiYo Radio", src: "assets/audio/track-1.mp3", cover: "" },
+    { title: "Açaí Contact", artist: "KefiYo Radio", src: "assets/audio/track-2.mp3", cover: "" },
+    { title: "Matcha Made in Heaven", artist: "KefiYo Radio", src: "assets/audio/track-3.mp3", cover: "" }
   ]
 
 };
