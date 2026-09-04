@@ -159,10 +159,12 @@ function renderMenu() {
 function renderInstagram() {
   var head = document.getElementById('instaHead');
   var grid = document.getElementById('instaGrid');
+  var follow = document.getElementById('instaFollow');
   var ig = CONTENT.instagram;
 
   if (head) {
     head.innerHTML =
+      (ig.sticker ? '<div class="ig-sticker">' + escapeHTML(ig.sticker) + '</div>' : '') +
       '<span class="eyebrow">' + INSTAGRAM_ICON + escapeHTML(ig.eyebrow) + '</span>' +
       '<h2>' + escapeHTML(ig.heading) + '</h2>';
   }
@@ -170,6 +172,10 @@ function renderInstagram() {
     grid.innerHTML = ig.videos.map(function (src) {
       return '<div><video autoplay muted loop playsinline src="' + src + '"></video></div>';
     }).join('');
+  }
+  if (follow && ig.url) {
+    follow.innerHTML = '<a href="' + ig.url + '" target="_blank" rel="noopener" class="btn ig-follow-btn">' +
+      INSTAGRAM_ICON + escapeHTML(ig.followLabel || 'Follow us on Instagram') + '</a>';
   }
 }
 
@@ -313,8 +319,15 @@ function initVinylPlayer() {
   });
 
   discBtn.addEventListener('click', function () {
-    if (!player.classList.contains('open')) player.classList.add('open');
-    togglePlay();
+    if (player.classList.contains('open')) {
+      // Already open — close the panel and stop playback.
+      pause();
+      player.classList.remove('open');
+    } else {
+      // Closed — open the panel and start playback.
+      player.classList.add('open');
+      play();
+    }
   });
   playBtn.addEventListener('click', togglePlay);
   nextBtn.addEventListener('click', function () { loadTrack(index + 1); if (isPlaying) play(); });

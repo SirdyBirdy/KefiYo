@@ -123,6 +123,9 @@ var CONTENT = {
   instagram: {
     eyebrow: "@kefiyo",
     heading: "Seen in Leeds",
+    sticker: "Come say hi 👋",
+    url: "https://instagram.com/kefiyo",
+    followLabel: "Follow us on Instagram",
     videos: [
       "assets/videos/instagram-1.mp4",
       "assets/videos/instagram-2.mp4",
