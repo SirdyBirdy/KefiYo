@@ -27,7 +27,10 @@ var CONTENT = {
       { label: "Our Story", href: "index.html#story" },
       { label: "Gift Cards", href: "index.html#gift" }
     ],
-    cta: { label: "Buy a gift card", href: "index.html#gift" }
+    /* NOTE: this must match gift.checkoutUrl below — both point to the
+       same Square checkout, kept in two places since content.js is a
+       plain object (can't reference one field from another). */
+    cta: { label: "Buy a gift card", href: "https://app.squareup.com/gift/MLXHPN5GPT744/order" }
   },
 
   /* ---------- Hero (top banner) ---------- */
