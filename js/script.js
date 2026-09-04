@@ -190,7 +190,7 @@ function renderGift() {
     '<p>' + escapeHTML(g.desc) + '</p>' +
     '<a href="' + g.checkoutUrl + '" target="_blank" rel="noopener" class="btn giftbtn">' + escapeHTML(g.buttonLabel) + '</a>' +
     '</div>' +
-    '<div class="cardart"><span class="amt">' + escapeHTML(g.cardLabel) + '</span></div>';
+    '<div class="cardart"><img class="cardart-logo" src="assets/images/logo.png" alt="KefiYo"><span class="amt">' + escapeHTML(g.cardLabel) + '</span></div>';
 }
 
 function renderFinal() {
