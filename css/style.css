@@ -107,16 +107,22 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .menufoot{display:flex;justify-content:center;padding-top:clamp(28px,4vw,48px)}
 
 /* insta */
-.igsection{background:var(--ink);padding:clamp(72px,10vw,150px) 0}
-.igsection .flavhead{margin-bottom:clamp(28px,4vw,48px)}
-.igsection .eyebrow{color:var(--pink);display:inline-flex;align-items:center;gap:8px}
+.igsection{background:color-mix(in srgb, var(--pink) 20%, var(--white));position:relative;overflow:hidden}
+.igsection .flavhead{position:relative;margin-bottom:clamp(28px,4vw,48px)}
+.igsection .eyebrow{color:var(--wasabi);display:inline-flex;align-items:center;gap:8px}
 .igsection .eyebrow::before{content:none}
 .igsection .eyebrow svg{width:16px;height:16px;flex:none}
-.igsection h2{color:var(--cream)}
+.ig-sticker{position:absolute;top:-18px;right:2%;width:clamp(90px,11vw,128px);aspect-ratio:1;background:var(--cream);border:3px solid var(--ink);border-radius:50%;display:grid;place-items:center;text-align:center;line-height:1.15;font-family:'Shrikhand',cursive;font-weight:400;font-size:clamp(11px,1.2vw,14px);color:var(--ink);transform:rotate(-8deg);animation:igwobble 6s ease-in-out infinite;padding:10px;box-shadow:0 12px 26px rgba(29,28,17,.16)}
+@keyframes igwobble{50%{transform:rotate(6deg) translateY(-6px)}}
+@media(max-width:640px){.ig-sticker{position:static;margin:0 auto 16px;transform:rotate(-6deg)}}
 .igrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(min-width:800px){.igrid{grid-template-columns:repeat(4,1fr)}}
-.igrid > *{aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:rgba(253,251,242,.08);box-shadow:0 18px 40px rgba(0,0,0,.35);transition:transform .3s ease}
+.igrid > *{aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:var(--white);box-shadow:0 14px 30px rgba(29,28,17,.12);transition:transform .3s ease}
 .igrid > *:hover{transform:translateY(-6px)}
+.ig-follow{display:flex;justify-content:center;margin-top:clamp(28px,4vw,44px)}
+.ig-follow-btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream)}
+.ig-follow-btn:hover{background:var(--deep)}
+.ig-follow-btn svg{width:18px;height:18px;flex:none}
 
 /* gift card */
 .gift{background:var(--deep);color:var(--cream);border-radius:clamp(28px,4vw,48px);padding:clamp(30px,5vw,72px);display:grid;gap:clamp(26px,4vw,56px)}
