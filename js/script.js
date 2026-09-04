@@ -35,6 +35,15 @@ function navHref(href) {
   return href;
 }
 
+/* External links (e.g. the Square gift card checkout) should open in a
+   new tab rather than navigating away from the site. */
+function isExternal(href) {
+  return /^https?:\/\//.test(href);
+}
+function externalAttrs(href) {
+  return isExternal(href) ? ' target="_blank" rel="noopener"' : '';
+}
+
 /* ---------------------------------------------------------- */
 /* Render functions — one per section                          */
 /* ---------------------------------------------------------- */
@@ -44,12 +53,18 @@ function renderNav() {
   var ctaEl = document.getElementById('navCta');
   if (linksEl) {
     linksEl.innerHTML = CONTENT.nav.links.map(function (l) {
-      return '<a href="' + navHref(l.href) + '">' + escapeHTML(l.label) + '</a>';
+      var href = navHref(l.href);
+      return '<a href="' + href + '"' + externalAttrs(href) + '>' + escapeHTML(l.label) + '</a>';
     }).join('');
   }
   if (ctaEl) {
-    ctaEl.href = navHref(CONTENT.nav.cta.href);
+    var ctaHref = navHref(CONTENT.nav.cta.href);
+    ctaEl.href = ctaHref;
     ctaEl.textContent = CONTENT.nav.cta.label;
+    if (isExternal(ctaHref)) {
+      ctaEl.target = '_blank';
+      ctaEl.rel = 'noopener';
+    }
   }
 }
 
@@ -216,7 +231,8 @@ function renderIsland() {
   var el = document.getElementById('islandNav');
   if (!el) return;
   el.innerHTML = CONTENT.island.map(function (item) {
-    return '<a href="' + navHref(item.href) + '"' + (item.highlight ? ' class="hi"' : '') + '>' + escapeHTML(item.label) + '</a>';
+    var href = navHref(item.href);
+    return '<a href="' + href + '"' + externalAttrs(href) + (item.highlight ? ' class="hi"' : '') + '>' + escapeHTML(item.label) + '</a>';
   }).join('');
 }
 

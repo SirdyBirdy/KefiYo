@@ -185,7 +185,8 @@ var CONTENT = {
   island: [
     { label: "Menu", href: "menu.html" },
     { label: "Flavours", href: "index.html#flavours" },
-    { label: "Gift card", href: "index.html#gift", highlight: true }
+    /* NOTE: must match gift.checkoutUrl / nav.cta.href above */
+    { label: "Gift card", href: "https://app.squareup.com/gift/MLXHPN5GPT744/order", highlight: true }
   ],
 
   /* ---------- Vinyl music player playlist ---------- */
