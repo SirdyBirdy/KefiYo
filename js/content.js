@@ -147,7 +147,7 @@ var CONTENT = {
     desc: "Digital gift cards, delivered by email in seconds. Choose your own amount at checkout — spend it on anything at the counter.",
     checkoutUrl: "https://app.squareup.com/gift/MLXHPN5GPT744/order",
     buttonLabel: "Buy a gift card",
-    cardLabel: "KefiYo Gift Card"
+    cardLabel: "Gift Card"
   },
 
   /* ---------- Final call-to-action ---------- */
