@@ -131,7 +131,8 @@ The easiest way to generate all of these from your logo in one go:
 3. Download the generated package
 4. Drop the files into `assets/images/favicon/` with the names above
 
-You'll also want an **`og-cover.jpg`** (1200×630px) in `assets/images/` — this
+You'll also want a **`social-media.jpeg`** (1200×630px recommended) in
+`assets/images/` — this
 is the image that shows up when someone shares a KefiYo link on social media
 or messaging apps.
 
@@ -176,7 +177,7 @@ Match these exactly (case-sensitive):
 | `assets/images/` | `flavour-acai.jpg` | Açaí Bowls card |
 | `assets/images/` | `flavour-matcha.jpg` | Matcha card |
 | `assets/images/` | `flavour-vegan.jpg` | Vegan & Smoothies card |
-| `assets/images/` | `og-cover.jpg` | Social share preview image |
+| `assets/images/` | `social-media.jpeg` | Social share preview image |
 | `assets/images/favicon/` | `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, `site.webmanifest` | Browser tab icons |
 | `assets/videos/` | `hero-video.mp4` | Hero background |
 | `assets/videos/` | `story-video.mp4` | "Why KefiYo" section |
