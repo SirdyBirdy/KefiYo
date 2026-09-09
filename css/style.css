@@ -117,6 +117,7 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .igsection .eyebrow{color:var(--wasabi);display:inline-flex;align-items:center;gap:8px}
 .igsection .eyebrow::before{content:none}
 .igsection .eyebrow svg{width:16px;height:16px;flex:none}
+.igsection h2{color:var(--ink)}
 .ig-sticker{position:absolute;top:-18px;right:2%;width:clamp(90px,11vw,128px);aspect-ratio:1;background:var(--cream);border:3px solid var(--ink);border-radius:50%;display:grid;place-items:center;text-align:center;line-height:1.15;font-family:'Shrikhand',cursive;font-weight:400;font-size:clamp(11px,1.2vw,14px);color:var(--ink);transform:rotate(-8deg);animation:igwobble 6s ease-in-out infinite;padding:10px;box-shadow:0 12px 26px rgba(29,28,17,.16)}
 @keyframes igwobble{50%{transform:rotate(6deg) translateY(-6px)}}
 @media(max-width:640px){.ig-sticker{position:static;margin:0 auto 16px;transform:rotate(-6deg)}}
