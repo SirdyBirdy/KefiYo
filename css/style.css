@@ -20,6 +20,11 @@ section{padding:clamp(72px,10vw,150px) 0}
 .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--wasabi)}
 .eyebrow::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pink);margin-right:10px;vertical-align:1px}
 h2{font-family:'Shrikhand',cursive;font-weight:400;font-size:clamp(30px,4.6vw,60px);line-height:1.02;letter-spacing:-.01em}
+/* Big headings (h1/h2/h3) default to pink instead of plain ink.
+   Anywhere a heading already has its own color (the green "a little
+   better" in the hero, or the cream headings on the dark gift/final
+   sections) that more specific rule wins and stays untouched. */
+h1,h2,h3{color:var(--pink)}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--deep);color:var(--cream);border-radius:999px;padding:15px 30px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;transition:.25s}
 .btn:hover{background:var(--wasabi)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
