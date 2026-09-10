@@ -18,7 +18,7 @@ var CHIP_ICONS = {
   froyo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 0-5.2 2-5.2 4.5S9 12 12 12s5.2-2 5.2-4.5S15 3 12 3Z"/><path d="M8.3 12c-.3 4 1.6 7.7 3.7 9 2.1-1.3 4-5 3.7-9"/></svg>',
   acai: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-16 0Z"/><circle cx="9" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="6.3" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="8" r="1" fill="currentColor" stroke="none"/></svg>',
   matcha: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h11v6a5.5 5.5 0 0 1-5.5 5.5h-0a5.5 5.5 0 0 1-5.5-5.5V8Z"/><path d="M16 9.2h1.3a2.3 2.3 0 0 1 0 4.6H16"/><path d="M9.3 8c-.2-1.8.8-2.9 2.5-3.7-.2 1.8-.9 2.9-2.5 3.7Z" fill="currentColor" stroke="none"/></svg>',
-  smoothie: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 8h9.6l-1.1 11H8.3L7.2 8Z"/><path d="M14 8V3.2M14 3.2l1.6 2"/><path d="M6.2 8h11.6"/></svg>',
+  coffee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9Z"/><path d="M16 10h1.5a2.3 2.3 0 0 1 0 4.6H16"/><path d="M8 5c0 1-.9 1.2-.9 2.2S8 8.4 8 8.4M11.5 5c0 1-.9 1.2-.9 2.2s.9 1.2.9 2.2M15 5c0 1-.9 1.2-.9 2.2s.9 1.2.9 2.2"/></svg>',
   toppings: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="4" y="5" width="8" height="2.4" rx="1.2" transform="rotate(-25 8 6.2)"/><rect x="13" y="4" width="7" height="2.2" rx="1.1" transform="rotate(20 16.5 5.1)"/><circle cx="6.5" cy="15" r="1.6"/><rect x="12" y="13" width="7" height="2.2" rx="1.1" transform="rotate(-15 15.5 14.1)"/><circle cx="18" cy="18" r="1.6"/></svg>'
 };
 
@@ -198,6 +198,16 @@ function renderGift() {
   var el = document.getElementById('giftCard');
   var g = CONTENT.gift;
   if (!el) return;
+
+  var hasImages = g.images && g.images.length > 0;
+  var cardArtHTML = hasImages
+    ? '<div class="cardart cardart-images">' +
+      g.images.map(function (img) {
+        return '<img src="' + img.src + '" alt="' + escapeHTML(img.alt || 'KefiYo gift card') + '">';
+      }).join('') +
+      '</div>'
+    : '<div class="cardart"><img class="cardart-logo" src="assets/images/logo.png" alt="KefiYo"><span class="amt">' + escapeHTML(g.cardLabel) + '</span></div>';
+
   el.innerHTML =
     '<div>' +
     '<span class="eyebrow" style="color:var(--matcha)">' + escapeHTML(g.eyebrow) + '</span>' +
@@ -205,7 +215,7 @@ function renderGift() {
     '<p>' + escapeHTML(g.desc) + '</p>' +
     '<a href="' + g.checkoutUrl + '" target="_blank" rel="noopener" class="btn giftbtn">' + escapeHTML(g.buttonLabel) + '</a>' +
     '</div>' +
-    '<div class="cardart"><img class="cardart-logo" src="assets/images/logo.png" alt="KefiYo"><span class="amt">' + escapeHTML(g.cardLabel) + '</span></div>';
+    cardArtHTML;
 }
 
 function renderFinal() {
@@ -361,6 +371,7 @@ function initVinylPlayer() {
 function renderFullMenuPage() {
   var heroEl = document.getElementById('fullMenuHero');
   var sectionsEl = document.getElementById('fullMenuSections');
+  var allergyEl = document.getElementById('menuAllergyNote');
   if (typeof MENU_PAGE_CONTENT === 'undefined' || (!heroEl && !sectionsEl)) return;
 
   var m = MENU_PAGE_CONTENT;
@@ -374,17 +385,23 @@ function renderFullMenuPage() {
 
   if (sectionsEl) {
     sectionsEl.innerHTML = m.categories.map(function (cat) {
+      var note = cat.note ? '<p class="lede" style="margin-bottom:20px">' + escapeHTML(cat.note) + '</p>' : '';
       var rows = cat.items.map(function (row) {
         var badge = row.badge ? '<span class="badge">' + escapeHTML(row.badge) + '</span>' : '';
-        return '<div class="row"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' +
-          '<span>' + escapeHTML(row.desc) + '</span></div>' +
-          '<div class="price">' + escapeHTML(row.price) + '</div></div>';
+        var desc = row.desc ? '<span>' + escapeHTML(row.desc) + '</span>' : '';
+        var price = row.price ? '<div class="price">' + escapeHTML(row.price) + '</div>' : '<div class="price"></div>';
+        return '<div class="row"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' + desc + '</div>' + price + '</div>';
       }).join('');
       return '<div class="menu-category">' +
         '<div class="menu-category-head">' + (CHIP_ICONS[cat.icon] || '') + '<h3>' + escapeHTML(cat.name) + '</h3></div>' +
+        note +
         '<div class="menu">' + rows + '</div>' +
         '</div>';
     }).join('');
+  }
+
+  if (allergyEl && m.allergyNote) {
+    allergyEl.innerHTML = '<p class="lede" style="max-width:none;text-align:center;margin:0 auto">' + escapeHTML(m.allergyNote) + '</p>';
   }
 }
 
@@ -403,7 +420,7 @@ function renderBusinessSchema() {
     "image": b.siteUrl + b.logo,
     "url": b.siteUrl,
     "priceRange": b.priceRange,
-    "servesCuisine": ["Frozen Yogurt", "Açaí", "Matcha", "Smoothies"],
+    "servesCuisine": ["Frozen Yogurt", "Açaí", "Matcha", "Coffee"],
     "address": {
       "@type": "PostalAddress",
       "streetAddress": b.streetAddress,

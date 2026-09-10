@@ -35,7 +35,7 @@ var CONTENT = {
 
   /* ---------- Hero (top banner) ---------- */
   hero: {
-    eyebrow: "Frozen yogurt · Açaí · Matcha · Leeds",
+    eyebrow: "Frozen Yogurt · Açaí · Matcha · Coffee & Hot Drinks",
     headingBefore: "Where everyday tastes ",
     headingHighlight: "a little better",
     lede: "Light, fresh and made to order. Swirled, topped and taken slowly.",
@@ -58,9 +58,9 @@ var CONTENT = {
     items: [
       {
         tag: "Classic", tagClass: "t1",
-        image: "assets/images/flavour-original.jpg", alt: "Original frozen yogurt",
-        title: "Original Froyo",
-        desc: "Tangy, live-cultured and lighter than ice cream."
+        image: "assets/images/flavour-original.jpg", alt: "Frozen yogurt",
+        title: "Frozen Yogurt",
+        desc: "Swirled your way, with something for every kind of craving — classic or vegan."
       },
       {
         tag: "Fruit", tagClass: "t2",
@@ -75,10 +75,10 @@ var CONTENT = {
         desc: "Ceremonial grade, iced or hot, softly sweet."
       },
       {
-        tag: "Plant-based", tagClass: "t4",
-        image: "assets/images/flavour-vegan.jpg", alt: "Vegan froyo",
-        title: "Vegan & Smoothies",
-        desc: "Coconut base swirls and blended fruit cups."
+        tag: "Roasted", tagClass: "t4",
+        image: "assets/images/flavour-coffee.jpg", alt: "Coffee",
+        title: "Coffee",
+        desc: "House espresso, hot or iced, with your choice of syrup."
       }
     ]
   },
@@ -107,17 +107,16 @@ var CONTENT = {
     chips: [
       { label: "Froyo", icon: "froyo" },
       { label: "Açaí", icon: "acai" },
-      { label: "Matcha & Coffee", icon: "matcha" },
-      { label: "Smoothies", icon: "smoothie" },
-      { label: "Toppings", icon: "toppings" }
+      { label: "Matcha", icon: "matcha" },
+      { label: "Coffee", icon: "coffee" }
     ],
     items: [
-      { name: "Classic Swirl", desc: "Original froyo, two toppings", price: "£5.20" },
-      { name: "Signature Bowl", badge: "Most loved", desc: "Froyo, fruit, granola, sauce", price: "£6.80" },
-      { name: "Vegan Coconut Swirl", desc: "Dairy-free base, two toppings", price: "£5.60" },
-      { name: "Açaí Bowl", desc: "Banana, berries, granola, honey", price: "£7.50" },
-      { name: "Iced Matcha Latte", desc: "Ceremonial grade, oat or dairy", price: "£4.20" },
-      { name: "Fruit Smoothie", desc: "Mango, berry or green", price: "£5.00" }
+      { name: "Frozen Yogurt", desc: "Small cup, unlimited toppings", price: "£4.49" },
+      { name: "Açaí Bowl", badge: "Most loved", desc: "Amazon Energy — açaí, banana, mixed berries, granola", price: "£6.99" },
+      { name: "Iced Matcha", desc: "Ceremonial grade, oat or dairy milk", price: "£4.50" },
+      { name: "Cappuccino", desc: "House espresso, steamed milk", price: "£3.70" },
+      { name: "Tropical Bliss", desc: "Açaí, mango, banana, kiwi, passion fruit", price: "£6.99" },
+      { name: "Vanilla Matcha", desc: "Ceremonial grade, vanilla", price: "£4.00" }
     ],
     footerButton: { label: "View the full menu page", href: "menu.html" }
   },
@@ -140,14 +139,25 @@ var CONTENT = {
   /* ---------- Gift card ---------- */
   /* Gift purchases happen on an external checkout (Square) — this section
      is just a simple "buy" button, not a value picker. To change where it
-     sends people, update checkoutUrl below. */
+     sends people, update checkoutUrl below.
+
+     "images" are the actual gift card artwork the client provides — drop
+     the files into assets/images/ with these names (or your own — just
+     update the paths below to match) and they'll display side by side
+     on the card face. Add or remove lines to show more/fewer designs;
+     leave the array empty ( images: [] ) to fall back to the plain
+     logo + label placeholder instead. */
   gift: {
     eyebrow: "New",
     heading: "Give a good mood",
     desc: "Digital gift cards, delivered by email in seconds. Choose your own amount at checkout — spend it on anything at the counter.",
     checkoutUrl: "https://app.squareup.com/gift/MLXHPN5GPT744/order",
     buttonLabel: "Buy a gift card",
-    cardLabel: "Gift Card"
+    cardLabel: "KefiYo Gift Card",
+    images: [
+      { src: "assets/images/gift-card-1.jpg", alt: "KefiYo gift card design" },
+      { src: "assets/images/gift-card-2.jpg", alt: "KefiYo gift card design" }
+    ]
   },
 
   /* ---------- Final call-to-action ---------- */
@@ -163,7 +173,7 @@ var CONTENT = {
      your hours/address/phone directly in search results) */
   business: {
     name: "KefiYo",
-    description: "Frozen yogurt, açaí and matcha counter in Leeds. Fresh daily, vegan options, live cultures.",
+    description: "Frozen yogurt, açaí, matcha and coffee counter in Leeds. Fresh daily, vegan options, live cultures.",
     streetAddress: "Merrion Street",
     city: "Leeds",
     postalCode: "",
@@ -193,9 +203,9 @@ var CONTENT = {
   /* Add MP3 files to assets/audio/ and list them here.
      "cover" is optional — leave "" for a plain numbered label. */
   playlist: [
-    { title: "Spin the Swirl", artist: "KefiYo Radio", src: "assets/audio/track-1.mp3", cover: "" },
-    { title: "Açaí Contact", artist: "KefiYo Radio", src: "assets/audio/track-2.mp3", cover: "" },
-    { title: "Matcha Made in Heaven", artist: "KefiYo Radio", src: "assets/audio/track-3.mp3", cover: "" }
+    { title: "Track One", artist: "KefiYo Radio", src: "assets/audio/track-1.mp3", cover: "" },
+    { title: "Track Two", artist: "KefiYo Radio", src: "assets/audio/track-2.mp3", cover: "" },
+    { title: "Track Three", artist: "KefiYo Radio", src: "assets/audio/track-3.mp3", cover: "" }
   ]
 
 };
