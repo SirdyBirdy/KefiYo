@@ -41,7 +41,7 @@ in quotes. Change the text between the quotes, save, refresh.
 
 **Menu prices** (the 6-item teaser on the homepage) are under `menu.items`:
 ```js
-{ name: "Classic Swirl", desc: "Original froyo, two toppings", price: "£5.20" },
+{ name: "Frozen Yogurt", desc: "Small cup, unlimited toppings", price: "£4.49" },
 ```
 Copy a whole `{ ... }` line to add an item, delete one to remove it. `badge`
 is optional — add `badge: "Most loved"` to any item to show a small tag next
@@ -59,6 +59,21 @@ change where it sends people, edit `checkoutUrl` in `content.js`:
 ```js
 checkoutUrl: "https://app.squareup.com/gift/MLXHPN5GPT744/order",
 ```
+
+The card visual itself shows real gift card artwork once the client provides
+it — add the image files to `assets/images/` and list them in `content.js` →
+`gift.images`:
+```js
+images: [
+  { src: "assets/images/gift-card-1.jpg", alt: "KefiYo gift card design" },
+  { src: "assets/images/gift-card-2.jpg", alt: "KefiYo gift card design" }
+]
+```
+Add or remove lines to show more or fewer designs — they lay out side by side
+automatically. Until real artwork is added, leave the placeholder file names
+as they are; the card face just won't show anything until those files exist.
+Set `images: []` (empty) to fall back to a plain logo + "Gift Card" label
+instead.
 
 ### Colors
 Top of `css/style.css`:
@@ -173,10 +188,11 @@ Match these exactly (case-sensitive):
 | Folder | File name | Used for |
 |---|---|---|
 | `assets/images/` | `logo.png` | Header logo |
-| `assets/images/` | `flavour-original.jpg` | Original Froyo card |
+| `assets/images/` | `flavour-original.jpg` | Frozen Yogurt card |
 | `assets/images/` | `flavour-acai.jpg` | Açaí Bowls card |
 | `assets/images/` | `flavour-matcha.jpg` | Matcha card |
-| `assets/images/` | `flavour-vegan.jpg` | Vegan & Smoothies card |
+| `assets/images/` | `flavour-coffee.jpg` | Coffee card |
+| `assets/images/` | `gift-card-1.jpg`, `gift-card-2.jpg` | Gift card artwork (add/remove in `content.js` → `gift.images`) |
 | `assets/images/` | `social-media.jpeg` | Social share preview image |
 | `assets/images/favicon/` | `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, `site.webmanifest` | Browser tab icons |
 | `assets/videos/` | `hero-video.mp4` | Hero background |
