@@ -35,7 +35,7 @@ var CONTENT = {
 
   /* ---------- Hero (top banner) ---------- */
   hero: {
-    eyebrow: "Frozen Yogurt · Açaí · Matcha · Coffee & Hot Drinks",
+    eyebrow: "Frozen Yogurt · Açaí · Matcha · Coffee · Hot Drinks",
     headingBefore: "Where everyday tastes ",
     headingHighlight: "a little better",
     lede: "Light, fresh and made to order. Swirled, topped and taken slowly.",
@@ -115,14 +115,30 @@ var CONTENT = {
       { label: "Coffee", icon: "coffee" }
     ],
     items: [
+      /* Froyo */
       { name: "Frozen Yogurt", desc: "Small cup, unlimited toppings", price: "£4.49", category: "froyo" },
+      { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49", category: "froyo" },
+      { name: "Large Cup", desc: "Unlimited toppings", price: "£6.49", category: "froyo" },
+      { name: "Vegan Flavour of the Week", desc: "Mix Berry", price: "+£0.49", category: "froyo" },
       { name: "Premium Drips", desc: "Nutella, peanut butter, salted caramel & more", price: "+£0.49", category: "froyo" },
-      { name: "Açaí Bowl", badge: "Most loved", desc: "Amazon Energy — açaí, banana, mixed berries, granola", price: "£6.99", category: "acai" },
+      /* Açaí */
+      { name: "Amazon Energy", badge: "Most loved", desc: "Açaí, banana, mixed berries, granola", price: "£6.99", category: "acai" },
+      { name: "The Chill Berry", desc: "Açaí, granola, strawberry, raspberry, goji berry", price: "£6.99", category: "acai" },
       { name: "Tropical Bliss", desc: "Açaí, mango, banana, kiwi, passion fruit", price: "£6.99", category: "acai" },
-      { name: "Iced Matcha", desc: "Ceremonial grade, oat or dairy milk", price: "£4.50", category: "matcha" },
+      { name: "Build Your Own", desc: "Pick a base, 4 toppings, and a sauce", price: "£6.99", category: "acai" },
+      { name: "Superfoods", desc: "Chia seeds, goji berry, bee pollen & more", price: "+£0.49", category: "acai" },
+      /* Matcha */
+      { name: "Matcha", desc: "Ceremonial grade, hot", price: "£3.90", category: "matcha" },
       { name: "Vanilla Matcha", desc: "Ceremonial grade, vanilla", price: "£4.00", category: "matcha" },
+      { name: "Iced Matcha", desc: "Ceremonial grade, oat or dairy milk", price: "£4.50", category: "matcha" },
+      { name: "Iced Strawberry Matcha", desc: "Ceremonial grade, strawberry", price: "£4.50", category: "matcha" },
+      { name: "Iced Salted Caramel Matcha", desc: "Ceremonial grade, salted caramel", price: "£4.75", category: "matcha" },
+      /* Coffee */
+      { name: "Espresso", desc: "House espresso", price: "£2.00", category: "coffee" },
+      { name: "Americano", desc: "House espresso, hot water", price: "£2.90", category: "coffee" },
+      { name: "Flat White", desc: "House espresso, silky micro-foam", price: "£3.50", category: "coffee" },
       { name: "Cappuccino", desc: "House espresso, steamed milk", price: "£3.70", category: "coffee" },
-      { name: "Flat White", desc: "House espresso, silky micro-foam", price: "£3.50", category: "coffee" }
+      { name: "Iced Caramel Macchiato", desc: "House espresso, caramel, cold milk", price: "£3.90", category: "coffee" }
     ],
     footerButton: { label: "View the full menu page", href: "menu.html" }
   },
