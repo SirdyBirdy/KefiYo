@@ -38,7 +38,7 @@ var CONTENT = {
     eyebrow: "Frozen Yogurt · Açaí · Matcha · Coffee · Hot Drinks",
     headingBefore: "Where everyday tastes ",
     headingHighlight: "a little better",
-    lede: "Light, fresh and made to order. Swirled, topped and taken slowly.",
+    lede: "Light, fresh and made to order. <br> Swirled, topped and taken slowly. </br>",
     buttons: [
       { label: "See the menu", href: "#menu", style: "btn" },
       { label: "Gift a swirl", href: "#gift", style: "btn ghost" }
