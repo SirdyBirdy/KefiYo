@@ -11,7 +11,12 @@ function escapeHTML(str) {
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    // A literal newline (\n) in any content.js/menu-content.js text field
+    // becomes a real line break here. This is the ONLY way to force a
+    // line break — typing <br> directly would just show up as the literal
+    // text "<br>" on the page, since everything else gets escaped above.
+    .replace(/\n/g, '<br>');
 }
 
 var CHIP_ICONS = {
