@@ -100,6 +100,7 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:22px 8px;border-top:1px solid color-mix(in srgb, var(--ink) 12%, transparent);transition:.2s;border-radius:14px}
 .row:last-child{border-bottom:1px solid color-mix(in srgb, var(--ink) 12%, transparent)}
 .row:hover{background:rgba(255,255,255,.85);padding-left:18px}
+.row.is-hidden{display:none}
 .row h4{font-size:17px;font-weight:400}
 .row h4::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:12px;vertical-align:2px}
 .row:nth-child(3n+1) h4::before{background:var(--pink)}
@@ -139,6 +140,19 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .cardart .amt{font-family:'Shrikhand',cursive;font-size:clamp(20px,2.6vw,30px);color:var(--deep);text-align:center;letter-spacing:.01em}
 .cardart.cardart-images{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:0;background:var(--cream)}
 .cardart.cardart-images img{width:100%;height:100%;object-fit:cover;display:block}
+
+.cardart-slider{padding:0;background:var(--cream);position:relative}
+.cardart-slides{position:relative;width:100%;height:100%}
+.cardart-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease}
+.cardart-slides img.active{opacity:1}
+.cardart-nav{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;border:none;background:rgba(29,28,17,.5);color:var(--cream);display:grid;place-items:center;cursor:pointer;transition:.2s}
+.cardart-nav:hover{background:rgba(29,28,17,.75)}
+.cardart-nav svg{width:16px;height:16px}
+.cardart-nav.prev{left:12px}
+.cardart-nav.next{right:12px}
+.cardart-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:2}
+.cardart-dots .dot{width:7px;height:7px;border-radius:50%;background:rgba(253,251,242,.55);cursor:pointer;transition:.2s;border:1px solid rgba(29,28,17,.15)}
+.cardart-dots .dot.active{background:var(--cream);width:18px;border-radius:4px}
 .giftbtn{background:var(--pink);color:var(--ink);margin-top:24px}
 .giftbtn:hover{background:var(--matcha)}
 .gift .giftnote{margin-top:12px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(253,251,242,.55)}
