@@ -152,7 +152,7 @@ function renderMenu() {
   }
   if (chips) {
     chips.innerHTML = m.chips.map(function (c, i) {
-      return '<span class="chip' + (i === 0 ? ' on' : '') + '">' +
+      return '<span class="chip' + (i === 0 ? ' on' : '') + '" data-category="' + escapeHTML(c.icon) + '">' +
         (CHIP_ICONS[c.icon] || '') +
         escapeHTML(c.label) +
         '</span>';
@@ -161,7 +161,7 @@ function renderMenu() {
   if (items) {
     items.innerHTML = m.items.map(function (row) {
       var badge = row.badge ? '<span class="badge">' + escapeHTML(row.badge) + '</span>' : '';
-      return '<div class="row"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' +
+      return '<div class="row" data-category="' + escapeHTML(row.category || '') + '"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' +
         '<span>' + escapeHTML(row.desc) + '</span></div>' +
         '<div class="price">' + escapeHTML(row.price) + '</div></div>';
     }).join('');
@@ -200,13 +200,35 @@ function renderGift() {
   if (!el) return;
 
   var hasImages = g.images && g.images.length > 0;
-  var cardArtHTML = hasImages
-    ? '<div class="cardart cardart-images">' +
-      g.images.map(function (img) {
-        return '<img src="' + img.src + '" alt="' + escapeHTML(img.alt || 'KefiYo gift card') + '">';
+  var cardArtHTML;
+
+  if (hasImages && g.images.length > 1) {
+    // Multiple images — render as a slider with arrows + dots.
+    cardArtHTML =
+      '<div class="cardart cardart-slider" id="giftSlider">' +
+      '<div class="cardart-slides">' +
+      g.images.map(function (img, i) {
+        return '<img src="' + img.src + '" alt="' + escapeHTML(img.alt || 'KefiYo gift card') + '"' + (i === 0 ? ' class="active"' : '') + '>';
       }).join('') +
-      '</div>'
-    : '<div class="cardart"><img class="cardart-logo" src="assets/images/logo.png" alt="KefiYo"><span class="amt">' + escapeHTML(g.cardLabel) + '</span></div>';
+      '</div>' +
+      '<button type="button" class="cardart-nav prev" aria-label="Previous design">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>' +
+      '</button>' +
+      '<button type="button" class="cardart-nav next" aria-label="Next design">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>' +
+      '</button>' +
+      '<div class="cardart-dots">' +
+      g.images.map(function (_, i) {
+        return '<span class="dot' + (i === 0 ? ' active' : '') + '" data-index="' + i + '" aria-label="Design ' + (i + 1) + '"></span>';
+      }).join('') +
+      '</div>' +
+      '</div>';
+  } else if (hasImages) {
+    // Exactly one image — just show it, no slider chrome needed.
+    cardArtHTML = '<div class="cardart cardart-images"><img src="' + g.images[0].src + '" alt="' + escapeHTML(g.images[0].alt || 'KefiYo gift card') + '"></div>';
+  } else {
+    cardArtHTML = '<div class="cardart"><img class="cardart-logo" src="assets/images/logo.png" alt="KefiYo"><span class="amt">' + escapeHTML(g.cardLabel) + '</span></div>';
+  }
 
   el.innerHTML =
     '<div>' +
@@ -250,6 +272,15 @@ function renderIsland() {
 /* Interactions (event delegation)                             */
 /* ---------------------------------------------------------- */
 
+function applyMenuFilter(category) {
+  var items = document.getElementById('menuItems');
+  if (!items) return;
+  items.querySelectorAll('.row').forEach(function (row) {
+    var match = !category || row.dataset.category === category;
+    row.classList.toggle('is-hidden', !match);
+  });
+}
+
 function wireMenuChips() {
   var chips = document.getElementById('menuChips');
   if (!chips) return;
@@ -258,9 +289,11 @@ function wireMenuChips() {
     if (!chip) return;
     chips.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('on'); });
     chip.classList.add('on');
-    // NOTE: visual state only. For real filtering, add a "category" field
-    // to each item in content.js and show/hide .row elements here.
+    applyMenuFilter(chip.dataset.category);
   });
+  // Apply the filter for whichever chip starts active.
+  var initial = chips.querySelector('.chip.on');
+  if (initial) applyMenuFilter(initial.dataset.category);
 }
 
 /* ---------------------------------------------------------- */
@@ -472,6 +505,34 @@ function renderMenuSchema() {
 }
 
 /* ---------------------------------------------------------- */
+/* Gift card image slider (only active when 2+ images given)   */
+/* ---------------------------------------------------------- */
+
+function wireGiftSlider() {
+  var slider = document.getElementById('giftSlider');
+  if (!slider) return;
+
+  var slides = slider.querySelectorAll('.cardart-slides img');
+  var dots = slider.querySelectorAll('.dot');
+  var index = 0;
+
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    slides.forEach(function (s, n) { s.classList.toggle('active', n === index); });
+    dots.forEach(function (d, n) { d.classList.toggle('active', n === index); });
+  }
+
+  var prevBtn = slider.querySelector('.cardart-nav.prev');
+  var nextBtn = slider.querySelector('.cardart-nav.next');
+  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
+
+  dots.forEach(function (dot, n) {
+    dot.addEventListener('click', function () { goTo(n); });
+  });
+}
+
+/* ---------------------------------------------------------- */
 /* Boot                                                         */
 /* ---------------------------------------------------------- */
 
@@ -490,5 +551,6 @@ document.addEventListener('DOMContentLoaded', function () {
   renderMenuSchema();
 
   wireMenuChips();
+  wireGiftSlider();
   initVinylPlayer();
 });

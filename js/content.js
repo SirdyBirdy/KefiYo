@@ -100,7 +100,11 @@ var CONTENT = {
   /* This is the one you'll edit most often. To add an item, copy a whole
      { ... } block below (including the commas around it) and change the
      values. To remove an item, delete its whole { ... } block.
-     "badge" is optional — remove the line entirely if an item has no badge. */
+     "badge" is optional — remove the line entirely if an item has no badge.
+     "category" must match one of the chip "icon" values below (froyo,
+     acai, matcha, coffee) — it's what the filter tabs use to show/hide
+     items when clicked. An item with no matching category just won't
+     show up under any tab. */
   menu: {
     eyebrow: "Full menu",
     heading: "Everything on the counter",
@@ -111,12 +115,14 @@ var CONTENT = {
       { label: "Coffee", icon: "coffee" }
     ],
     items: [
-      { name: "Frozen Yogurt", desc: "Small cup, unlimited toppings", price: "£4.49" },
-      { name: "Açaí Bowl", badge: "Most loved", desc: "Amazon Energy — açaí, banana, mixed berries, granola", price: "£6.99" },
-      { name: "Iced Matcha", desc: "Ceremonial grade, oat or dairy milk", price: "£4.50" },
-      { name: "Cappuccino", desc: "House espresso, steamed milk", price: "£3.70" },
-      { name: "Tropical Bliss", desc: "Açaí, mango, banana, kiwi, passion fruit", price: "£6.99" },
-      { name: "Vanilla Matcha", desc: "Ceremonial grade, vanilla", price: "£4.00" }
+      { name: "Frozen Yogurt", desc: "Small cup, unlimited toppings", price: "£4.49", category: "froyo" },
+      { name: "Premium Drips", desc: "Nutella, peanut butter, salted caramel & more", price: "+£0.49", category: "froyo" },
+      { name: "Açaí Bowl", badge: "Most loved", desc: "Amazon Energy — açaí, banana, mixed berries, granola", price: "£6.99", category: "acai" },
+      { name: "Tropical Bliss", desc: "Açaí, mango, banana, kiwi, passion fruit", price: "£6.99", category: "acai" },
+      { name: "Iced Matcha", desc: "Ceremonial grade, oat or dairy milk", price: "£4.50", category: "matcha" },
+      { name: "Vanilla Matcha", desc: "Ceremonial grade, vanilla", price: "£4.00", category: "matcha" },
+      { name: "Cappuccino", desc: "House espresso, steamed milk", price: "£3.70", category: "coffee" },
+      { name: "Flat White", desc: "House espresso, silky micro-foam", price: "£3.50", category: "coffee" }
     ],
     footerButton: { label: "View the full menu page", href: "menu.html" }
   },
