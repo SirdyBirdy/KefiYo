@@ -58,7 +58,7 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .flavgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 16px}
 @media(min-width:640px){.flavgrid{gap:22px 20px}}
 @media(min-width:900px){.flavgrid{grid-template-columns:repeat(4,1fr);gap:28px}}
-.flav{display:grid;gap:12px;text-align:left}
+.flav{display:grid;gap:12px;text-align:left;align-self:start}
 .flav .ph{position:relative;aspect-ratio:3/4;border-radius:26px;overflow:hidden;background:var(--cream)}
 .flav .ph img{transition:transform .6s ease}
 .flav:hover .ph img{transform:scale(1.05)}
