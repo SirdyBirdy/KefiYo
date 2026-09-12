@@ -24,6 +24,7 @@ var CONTENT = {
     links: [
       { label: "Flavours", href: "index.html#flavours" },
       { label: "Menu", href: "menu.html" },
+      { label: "Events", href: "events.html" },
       { label: "Our Story", href: "index.html#story" },
       { label: "Gift Cards", href: "index.html#gift" }
     ],
@@ -38,7 +39,7 @@ var CONTENT = {
     eyebrow: "Frozen Yogurt · Açaí · Matcha · Coffee · Hot Drinks",
     headingBefore: "Where everyday tastes ",
     headingHighlight: "a little better",
-    lede: "Light, fresh and made to order. \nSwirled, topped and taken slowly.",
+    lede: "Light, fresh and made to order. Swirled, topped and taken slowly.",
     buttons: [
       { label: "See the menu", href: "#menu", style: "btn" },
       { label: "Gift a swirl", href: "#gift", style: "btn ghost" }
@@ -54,7 +55,7 @@ var CONTENT = {
   flavours: {
     eyebrow: "The line-up",
     heading: "Four ways to swirl",
-    lede: "A short menu, done properly. \nRotating specials every week.",
+    lede: "A short menu, done properly. Rotating specials every week.",
     items: [
       {
         tag: "Classic", tagClass: "t1",
@@ -90,7 +91,7 @@ var CONTENT = {
     lede: "Kefi means good spirits — the joy you feel when something simple is done well. That's the whole idea behind the counter.",
     video: "assets/videos/story-video.mp4",
     points: [
-      { number: "01", text: "Made with real Kefir yogurt, packed with protein and billions of live cultures." },
+      { number: "01", text: "Real yogurt, live cultures, nothing artificial." },
       { number: "02", text: "Toppings prepped fresh each morning in-store." },
       { number: "03", text: "Built for lingering — good light, good seats." }
     ]
@@ -204,7 +205,12 @@ var CONTENT = {
     priceRange: "££",
     openingHours: "Mo-Su 11:00-21:00",
     logo: "assets/images/logo.png",
-    siteUrl: "https://www.kefiyo.co.uk/"
+    siteUrl: "https://www.kefiyo.co.uk/",
+    /* Used for the "Find out more" buttons on the Events page. Digits
+       only, country code first, no +, no spaces or dashes — e.g. a UK
+       number 07123 456789 becomes "447123456789". Leave blank and those
+       buttons just won't have anywhere to send people. */
+    whatsapp: ""
   },
 
   /* ---------- Footer ---------- */

@@ -538,6 +538,76 @@ function wireGiftSlider() {
 }
 
 /* ---------------------------------------------------------- */
+/* Events page (events.html only — EVENTS_PAGE_CONTENT comes    */
+/* from events-content.js, only loaded on that page)            */
+/* ---------------------------------------------------------- */
+
+function renderEventsPage() {
+  var heroEl = document.getElementById('eventsHero');
+  var filterEl = document.getElementById('eventsFilter');
+  var listEl = document.getElementById('eventsList');
+  if (typeof EVENTS_PAGE_CONTENT === 'undefined' || (!heroEl && !listEl)) return;
+
+  var ev = EVENTS_PAGE_CONTENT;
+  var whatsapp = (CONTENT.business && CONTENT.business.whatsapp) || '';
+
+  if (heroEl) {
+    heroEl.innerHTML =
+      '<span class="eyebrow">' + escapeHTML(ev.hero.eyebrow) + '</span>' +
+      '<h1>' + escapeHTML(ev.hero.heading) + '</h1>' +
+      '<p class="lede" style="text-align:center">' + escapeHTML(ev.hero.lede) + '</p>';
+  }
+
+  // Unique months, in the order they first appear (not sorted).
+  var months = [];
+  ev.events.forEach(function (e) {
+    if (e.month && months.indexOf(e.month) === -1) months.push(e.month);
+  });
+
+  if (filterEl) {
+    filterEl.innerHTML = '<span class="chip on" data-month="all">All</span>' +
+      months.map(function (m) {
+        return '<span class="chip" data-month="' + escapeHTML(m) + '">' + escapeHTML(m) + '</span>';
+      }).join('');
+  }
+
+  if (listEl) {
+    listEl.innerHTML = ev.events.map(function (e) {
+      var message = 'Hi, I would like to find out about ' + e.name;
+      var waLink = whatsapp ? ('https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(message)) : '#';
+      var cost = e.cost ? '<div class="price">' + escapeHTML(e.cost) + '</div>' : '<div class="price"></div>';
+      var desc = e.desc ? '<p class="event-desc">' + escapeHTML(e.desc) + '</p>' : '';
+      return '<div class="row" data-month="' + escapeHTML(e.month || '') + '">' +
+        '<div>' +
+        '<h4>' + escapeHTML(e.name) + '</h4>' +
+        '<span>' + escapeHTML(e.date) + ' · ' + escapeHTML(e.time) + ' · ' + escapeHTML(e.venue) + '</span>' +
+        desc +
+        '<a href="' + waLink + '" target="_blank" rel="noopener" class="btn ghost event-cta">Find out more</a>' +
+        '</div>' +
+        cost +
+        '</div>';
+    }).join('');
+  }
+}
+
+function wireEventsFilter() {
+  var filterEl = document.getElementById('eventsFilter');
+  var listEl = document.getElementById('eventsList');
+  if (!filterEl || !listEl) return;
+  filterEl.addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    filterEl.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('on'); });
+    chip.classList.add('on');
+    var month = chip.dataset.month;
+    listEl.querySelectorAll('.row').forEach(function (row) {
+      var match = month === 'all' || row.dataset.month === month;
+      row.classList.toggle('is-hidden', !match);
+    });
+  });
+}
+
+/* ---------------------------------------------------------- */
 /* Boot                                                         */
 /* ---------------------------------------------------------- */
 
@@ -552,10 +622,12 @@ document.addEventListener('DOMContentLoaded', function () {
   renderFinal();
   renderIsland();
   renderFullMenuPage();
+  renderEventsPage();
   renderBusinessSchema();
   renderMenuSchema();
 
   wireMenuChips();
+  wireEventsFilter();
   wireGiftSlider();
   initVinylPlayer();
 });
