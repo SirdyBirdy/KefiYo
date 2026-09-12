@@ -223,6 +223,7 @@ var CONTENT = {
   island: [
     { label: "Menu", href: "menu.html" },
     { label: "Flavours", href: "index.html#flavours" },
+    { label: "Events", href: "events.html" },
     /* NOTE: must match gift.checkoutUrl / nav.cta.href above */
     { label: "Gift card", href: "https://app.squareup.com/gift/MLXHPN5GPT744/order", highlight: true }
   ],
