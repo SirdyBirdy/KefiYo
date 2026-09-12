@@ -104,6 +104,8 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .row:last-child{border-bottom:1px solid color-mix(in srgb, var(--ink) 12%, transparent)}
 .row:hover{background:rgba(255,255,255,.85);padding-left:18px}
 .row.is-hidden{display:none}
+.row .event-desc{margin-top:8px;font-size:13.5px;color:rgba(29,28,17,.62);line-height:1.6;max-width:56ch}
+.row .event-cta{margin-top:14px;padding:10px 22px;font-size:11px}
 .row h4{font-size:17px;font-weight:400}
 .row h4::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:12px;vertical-align:2px}
 .row:nth-child(3n+1) h4::before{background:var(--pink)}
@@ -184,7 +186,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
 /* vinyl music player             */
 /* ============================= */
 .vinyl-player{position:fixed;right:20px;bottom:20px;z-index:95;display:flex;align-items:center;flex-direction:row-reverse}
-.vinyl-disc{position:relative;width:62px;height:62px;border-radius:50%;cursor:pointer;flex:none;box-shadow:0 10px 26px rgba(29,28,17,.32);background:
+.vinyl-disc{position:relative;width:62px;height:62px;border-radius:50%;cursor:pointer;flex:none;box-shadow:0 10px 26px rgba(29,28,17,.32);border:3px solid var(--wasabi);background:
   radial-gradient(circle at center, var(--cream) 0 14%, var(--ink) 15% 16%, #2a2812 16% 100%),
   repeating-radial-gradient(circle at center, rgba(255,255,255,.05) 0 2px, transparent 2px 5px);
   animation:vinylspin 3.4s linear infinite;
@@ -192,7 +194,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
 }
 .vinyl-player.playing .vinyl-disc{animation-play-state:running}
 .vinyl-disc::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 30%, rgba(255,255,255,.16), transparent 60%)}
-.vinyl-label{position:absolute;top:50%;left:50%;width:38%;height:38%;transform:translate(-50%,-50%);border-radius:50%;background:var(--pink);display:grid;place-items:center;overflow:hidden}
+.vinyl-label{position:absolute;top:50%;left:50%;width:38%;height:38%;transform:translate(-50%,-50%);border-radius:50%;background:var(--pink);display:grid;place-items:center;overflow:hidden;box-shadow:0 0 0 2px var(--cream)}
 .vinyl-label img{width:100%;height:100%;object-fit:cover}
 .vinyl-label .fallback{font-family:'Shrikhand',cursive;font-size:11px;color:var(--ink)}
 @keyframes vinylspin{to{transform:rotate(360deg)}}
@@ -201,14 +203,15 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
 .vinyl-player.playing .tonearm{transform:rotate(6deg)}
 .tonearm svg{width:100%;height:100%}
 
-.vinyl-panel{max-width:0;opacity:0;overflow:hidden;transition:max-width .35s ease,opacity .25s ease,margin .35s ease;background:rgba(29,28,17,.94);backdrop-filter:blur(10px);border-radius:20px;color:var(--cream);display:flex;align-items:center;gap:12px;white-space:nowrap}
+.vinyl-panel{max-width:0;opacity:0;overflow:hidden;transition:max-width .35s ease,opacity .25s ease,margin .35s ease;background:var(--deep);border-left:3px solid var(--pink);backdrop-filter:blur(10px);border-radius:0 20px 20px 0;color:var(--cream);display:flex;align-items:center;gap:12px;white-space:nowrap}
 .vinyl-player.open .vinyl-panel{max-width:280px;opacity:1;margin-right:12px;padding:10px 14px}
 .vinyl-meta{display:grid;line-height:1.25;min-width:0}
-.vinyl-meta .t{font-size:12.5px;overflow:hidden;text-overflow:ellipsis}
-.vinyl-meta .a{font-size:10.5px;color:rgba(253,251,242,.6);text-transform:uppercase;letter-spacing:.08em}
+.vinyl-meta .t{font-size:12.5px;overflow:hidden;text-overflow:ellipsis;color:var(--cream)}
+.vinyl-meta .a{font-size:10.5px;color:var(--matcha);text-transform:uppercase;letter-spacing:.08em}
+.vinyl-status{color:var(--pink)}
 .vinyl-controls{display:flex;align-items:center;gap:6px}
 .vinyl-controls button{background:none;border:none;color:var(--cream);cursor:pointer;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;transition:.2s}
-.vinyl-controls button:hover{background:rgba(255,255,255,.12)}
+.vinyl-controls button:hover{background:rgba(247,192,191,.28);color:var(--pink)}
 .vinyl-controls svg{width:15px;height:15px}
 .vinyl-controls .play-btn svg{width:17px;height:17px}
 
