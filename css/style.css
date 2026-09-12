@@ -186,15 +186,15 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
 /* vinyl music player             */
 /* ============================= */
 .vinyl-player{position:fixed;right:20px;bottom:20px;z-index:95;display:flex;align-items:center;flex-direction:row-reverse}
-.vinyl-disc{position:relative;width:62px;height:62px;border-radius:50%;cursor:pointer;flex:none;box-shadow:0 10px 26px rgba(29,28,17,.32);border:3px solid var(--wasabi);background:
-  radial-gradient(circle at center, var(--cream) 0 14%, var(--ink) 15% 16%, #2a2812 16% 100%),
-  repeating-radial-gradient(circle at center, rgba(255,255,255,.05) 0 2px, transparent 2px 5px);
+.vinyl-disc{position:relative;width:62px;height:62px;border-radius:50%;cursor:pointer;flex:none;box-shadow:0 10px 26px rgba(29,28,17,.4);border:3px solid var(--pink);background:
+  radial-gradient(circle at center, var(--cream) 0 14%, var(--wasabi) 15% 16%, var(--deep) 16% 100%),
+  repeating-radial-gradient(circle at center, rgba(247,192,191,.16) 0 2px, transparent 2px 5px);
   animation:vinylspin 3.4s linear infinite;
   animation-play-state:paused;
 }
 .vinyl-player.playing .vinyl-disc{animation-play-state:running}
-.vinyl-disc::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 30%, rgba(255,255,255,.16), transparent 60%)}
-.vinyl-label{position:absolute;top:50%;left:50%;width:38%;height:38%;transform:translate(-50%,-50%);border-radius:50%;background:var(--pink);display:grid;place-items:center;overflow:hidden;box-shadow:0 0 0 2px var(--cream)}
+.vinyl-disc::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 30%, rgba(255,255,255,.22), transparent 60%)}
+.vinyl-label{position:absolute;top:50%;left:50%;width:38%;height:38%;transform:translate(-50%,-50%);border-radius:50%;background:var(--pink);display:grid;place-items:center;overflow:hidden;box-shadow:0 0 0 2px var(--wasabi)}
 .vinyl-label img{width:100%;height:100%;object-fit:cover}
 .vinyl-label .fallback{font-family:'Shrikhand',cursive;font-size:11px;color:var(--ink)}
 @keyframes vinylspin{to{transform:rotate(360deg)}}
