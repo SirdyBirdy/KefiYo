@@ -11,12 +11,14 @@ Open `index.html` directly in a browser and it works.
 kefiyo-site/
 ├── index.html              ← homepage — page structure only, no text
 ├── menu.html                ← full menu page — page structure only, no text
+├── events.html               ← events page — page structure only, no text
 ├── css/
 │   └── style.css            ← all styling (colors, spacing, layout)
 ├── js/
 │   ├── content.js            ← ALL homepage text, menu teaser, prices, gift card, business info
 │   ├── menu-content.js       ← ALL full-menu-page text, categories, items, prices
-│   └── script.js             ← renders content.js/menu-content.js onto the page + interactions
+│   ├── events-content.js     ← ALL events — add new ones here
+│   └── script.js             ← renders every content file onto the page + interactions
 └── assets/
     ├── images/
     │   └── favicon/          ← favicon files (see section 5)
@@ -24,10 +26,11 @@ kefiyo-site/
     └── audio/                ← music player tracks
 ```
 
-**The rule that matters most:** `index.html` and `menu.html` contain almost no
-visible text anymore. Everything you'd want to edit — headings, menu items,
-prices, gift card link, footer — lives in `js/content.js` (homepage) or
-`js/menu-content.js` (full menu page). The `.html` files are just empty
+**The rule that matters most:** `index.html`, `menu.html`, and `events.html`
+contain almost no visible text. Everything you'd want to edit — headings,
+menu items, prices, gift card link, events, footer — lives in `js/content.js`
+(homepage + shared site info), `js/menu-content.js` (full menu page), or
+`js/events-content.js` (events page). The `.html` files are just empty
 containers that `script.js` fills in when the page loads.
 
 ---
@@ -52,6 +55,34 @@ Same idea, but organized into `categories`, each with its own `items` array.
 This is the complete menu shown on the dedicated menu page (linked from "See
 full menu" and the nav). Add/remove/reorder items the same way as above.
 
+### Events page → `js/events-content.js`
+Open the file and add a new `{ ... }` block to the `events` array — copy an
+existing one and change the values. Each event needs:
+- `name`, `venue`, `date`, `month`, `time` — all required
+- `cost` — optional, delete the line entirely for free events
+- `desc` — optional, a sentence or two about the event
+
+**Order matters here — it's deliberate.** Events are NOT automatically
+sorted by date. They display in exactly the order you list them in the file.
+To feature a new event at the top of the page, add it to the very top of the
+`events` array (just under `events: [`), even if its date is further out
+than events already listed below it. This is on purpose — you stay in full
+control of what shows first.
+
+**The month filter tabs** at the top of the events page are generated
+automatically from whatever you type in each event's `month` field. Use the
+exact same text for every event in the same month (e.g. always
+`"September 2026"`, not sometimes `"Sept 2026"`) or they'll split into
+separate tabs.
+
+**The "Find out more" button** on every event opens WhatsApp with a message
+already filled in naming that event — you don't set this up per event, it's
+generated automatically from the event's `name` plus the phone number in
+`content.js` → `business.whatsapp`. That number must be digits only, country
+code first, no `+`, spaces, or dashes (a UK mobile `07123 456789` becomes
+`"447123456789"`). Until that field is filled in, the buttons won't have
+anywhere to send people.
+
 ### Gift cards
 Gift purchases go through Square's checkout, not this website — so the gift
 card section is a single "Buy a gift card" button, not a price picker. To
@@ -69,11 +100,20 @@ images: [
   { src: "assets/images/gift-card-2.jpg", alt: "KefiYo gift card design" }
 ]
 ```
-Add or remove lines to show more or fewer designs — they lay out side by side
-automatically. Until real artwork is added, leave the placeholder file names
-as they are; the card face just won't show anything until those files exist.
-Set `images: []` (empty) to fall back to a plain logo + "Gift Card" label
-instead.
+Add or remove lines to add or remove designs. With 2 or more images they
+automatically become a slider (arrows + dots to click through); with exactly
+1 image it just displays that image with no slider controls. Until real
+artwork is added, leave the placeholder file names as they are; the card
+face just won't show anything until those files exist. Set `images: []`
+(empty) to fall back to a plain logo + "Gift Card" label instead.
+
+### Forcing a line break in any text
+Don't type `<br>` directly — it'll show up as the literal text "<br>" on the
+page. Instead, use `\n` inside the quotes wherever you want a line break:
+```js
+lede: "Light, fresh and made to order.\nSwirled, topped and taken slowly.",
+```
+This works in any text field in `content.js` or `menu-content.js`.
 
 ### Colors
 Top of `css/style.css`:
@@ -204,15 +244,17 @@ Match these exactly (case-sensitive):
 
 ## 7. Things NOT to touch (unless you mean to)
 
-- Don't rename `index.html`, `menu.html`, `css/style.css`, `js/content.js`,
-  `js/menu-content.js`, or `js/script.js` — the pages link to these by exact
-  name, and `menu.html`'s nav/gift links assume `index.html` is at the root.
+- Don't rename `index.html`, `menu.html`, `events.html`, `css/style.css`,
+  `js/content.js`, `js/menu-content.js`, `js/events-content.js`, or
+  `js/script.js` — the pages link to these by exact name, and both
+  `menu.html` and `events.html`'s nav/gift links assume `index.html` is at
+  the root.
 - Don't move the `assets` folder or rename its subfolders.
 - Don't delete `id="..."` attributes from the `.html` files — that's how
   `script.js` knows where to inject content from `content.js`. If you need to
   restructure the layout, move the `id` along with its element rather than
   deleting it.
-- Inside `content.js`/`menu-content.js`: don't remove commas between `{ ... }`
+- Inside `content.js`/`menu-content.js`/`events-content.js`: don't remove commas between `{ ... }`
   blocks or quotes around text — both will break the whole file (the browser
   console will show a red error if this happens).
 
@@ -257,10 +299,10 @@ what went wrong.
 
 **The whole page looks blank / unstyled.**
 Open the browser console (right-click → Inspect → Console tab) and look for a
-red error. The most common cause is a typo in `content.js` or
-`menu-content.js` — a missing comma or quote will stop the whole file from
-loading, which stops the whole page from rendering. The error message will
-usually point at the line number.
+red error. The most common cause is a typo in `content.js`,
+`menu-content.js`, or `events-content.js` — a missing comma or quote will
+stop the whole file from loading, which stops the whole page from
+rendering. The error message will usually point at the line number.
 
 **I broke something and don't know what.**
 If you're using git, undo local changes back to the last commit with
