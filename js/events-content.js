@@ -29,13 +29,12 @@
                     break (see README for details).
      - asset       (optional) — a photo or video for the event. Just
                     give the file path, e.g.
-                    "assets/images/events/flavours-drop.jpg" — the
-                    page automatically shows it as an image or a
-                    (silent, looping) video based on the file's
-                    extension. Leave this line out entirely for
-                    events with no photo/video yet; the event still
-                    displays perfectly fine without one, just as
-                    text.
+                    "assets/events/flavours-drop.jpg" — the page
+                    automatically shows it as an image or a (silent,
+                    looping) video based on the file's extension.
+                    Leave this line out entirely for events with no
+                    photo/video yet; the event still displays
+                    perfectly fine without one, just as text.
 
    The "Find out more" button on every event opens WhatsApp with a
    pre-filled message naming that specific event — nothing to set up
@@ -54,12 +53,12 @@ var EVENTS_PAGE_CONTENT = {
   events: [
     {
       name: "The New Flavours Drop!",
-      venue: "KefiYo, Merrion Street",
+      venue: "KefiYo, 17 Ash Rd, Headingley",
       date: "15th September",
       month: "September 2026",
       time: "4:00 PM – 8:00 PM",
       desc: "Hey! We have something exciting to share! 🍦✨\nKefiyo is bringing some delicious newness to the table, and we'd absolutely love for you to be a part of it! 💛\nJoin us for an evening filled with new frozen yogurt flavours, fun conversations & plenty of scoops!\nCan't wait to have you with us! 💚",
-      asset: "assets/events/flavours-drop.mp4",
+      asset: "assets/events/flavours-drop.mp4"
     }
   ]
 
