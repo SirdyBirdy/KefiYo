@@ -36,7 +36,7 @@ var CONTENT = {
 
   /* ---------- Hero (top banner) ---------- */
   hero: {
-    eyebrow: "Frozen Yogurt · Açaí · Matcha · Coffee · Hot Drinks",
+    eyebrow: "Frozen Yogurt · Açaí · Matcha · Coffee",
     headingBefore: "Where everyday tastes ",
     headingHighlight: "a little better",
     lede: "Light, fresh and made to order. \nSwirled, topped and taken slowly.",
@@ -188,7 +188,7 @@ var CONTENT = {
     eyebrow: "Come say hi",
     heading: "Your main-character moment is one swirl away",
     address: "Merrion Street, Leeds · Open daily 11am – 9pm",
-    button: { label: "Get directions", href: "#" }
+    button: { label: "Get directions", href: "https://maps.app.goo.gl/3xj619SGTdadP82F9" }
   },
 
   /* ---------- Business info (used for SEO structured data — ---------- */
@@ -210,13 +210,15 @@ var CONTENT = {
        only, country code first, no +, no spaces or dashes — e.g. a UK
        number 07123 456789 becomes "447123456789". Leave blank and those
        buttons just won't have anywhere to send people. */
-    whatsapp: ""
+    whatsapp: "447568657433"
   },
 
   /* ---------- Footer ---------- */
+  /* The two footer links (Instagram, Contact) aren't set here — they're
+     built automatically from instagram.url above and business.whatsapp,
+     so there's nothing to duplicate or keep in sync. */
   footer: {
-    copyright: "© KefiYo 2026",
-    links: "Instagram · TikTok · Contact"
+    copyright: "© KefiYo 2026"
   },
 
   /* ---------- Mobile floating nav (bottom pill) ---------- */

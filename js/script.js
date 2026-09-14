@@ -256,11 +256,20 @@ function renderFinal() {
       '<span class="eyebrow">' + escapeHTML(f.eyebrow) + '</span>' +
       '<h2>' + escapeHTML(f.heading) + '</h2>' +
       '<p class="lede" style="text-align:center">' + escapeHTML(f.address) + '</p>' +
-      '<a href="' + f.button.href + '" class="btn">' + escapeHTML(f.button.label) + '</a>';
+      '<a href="' + f.button.href + '"' + externalAttrs(f.button.href) + ' class="btn">' + escapeHTML(f.button.label) + '</a>';
   }
   if (footer) {
+    var igUrl = CONTENT.instagram && CONTENT.instagram.url;
+    var whatsapp = CONTENT.business && CONTENT.business.whatsapp;
+    var contactHref = whatsapp
+      ? ('https://wa.me/' + whatsapp + '?text=' + encodeURIComponent('Hi, I have a question for KefiYo'))
+      : '#';
     footer.innerHTML =
-      '<span>' + escapeHTML(ft.copyright) + '</span><span>' + escapeHTML(ft.links) + '</span>';
+      '<span>' + escapeHTML(ft.copyright) + '</span>' +
+      '<div class="footer-links">' +
+      (igUrl ? '<a href="' + igUrl + '" target="_blank" rel="noopener">Instagram</a>' : '') +
+      '<a href="' + contactHref + '" target="_blank" rel="noopener">Contact</a>' +
+      '</div>';
   }
 }
 
@@ -577,7 +586,17 @@ function renderEventsPage() {
       var waLink = whatsapp ? ('https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(message)) : '#';
       var cost = e.cost ? '<div class="price">' + escapeHTML(e.cost) + '</div>' : '<div class="price"></div>';
       var desc = e.desc ? '<p class="event-desc">' + escapeHTML(e.desc) + '</p>' : '';
-      return '<div class="row" data-month="' + escapeHTML(e.month || '') + '">' +
+      var hasAsset = !!e.asset;
+      var isVideo = hasAsset && /\.(mp4|webm|mov|m4v)$/i.test(e.asset);
+      var media = hasAsset
+        ? '<div class="event-media">' +
+          (isVideo
+            ? '<video src="' + e.asset + '" autoplay muted loop playsinline></video>'
+            : '<img src="' + e.asset + '" alt="' + escapeHTML(e.name) + '">') +
+          '</div>'
+        : '';
+      return '<div class="row' + (hasAsset ? ' has-media' : '') + '" data-month="' + escapeHTML(e.month || '') + '">' +
+        media +
         '<div>' +
         '<h4>' + escapeHTML(e.name) + '</h4>' +
         '<span>' + escapeHTML(e.date) + ' · ' + escapeHTML(e.time) + ' · ' + escapeHTML(e.venue) + '</span>' +

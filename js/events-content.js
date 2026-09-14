@@ -24,7 +24,18 @@
      - time        (required) — e.g. "6:00 PM – 8:00 PM"
      - cost        (optional) — e.g. "£10 per person". Leave out
                     entirely (delete the line) for free events.
-     - desc        (optional) — one or two sentences about the event.
+     - desc        (optional) — a sentence or a few about the event.
+                    Use \n inside the text wherever you want a line
+                    break (see README for details).
+     - asset       (optional) — a photo or video for the event. Just
+                    give the file path, e.g.
+                    "assets/images/events/flavours-drop.jpg" — the
+                    page automatically shows it as an image or a
+                    (silent, looping) video based on the file's
+                    extension. Leave this line out entirely for
+                    events with no photo/video yet; the event still
+                    displays perfectly fine without one, just as
+                    text.
 
    The "Find out more" button on every event opens WhatsApp with a
    pre-filled message naming that specific event — nothing to set up
@@ -37,35 +48,17 @@ var EVENTS_PAGE_CONTENT = {
   hero: {
     eyebrow: "What's on",
     heading: "Events at KefiYo",
-    lede: "Tastings, workshops and evenings at the counter — come hang out with us."
+    lede: "Tastings, launches and evenings at the counter — come hang out with us."
   },
 
   events: [
     {
-      name: "Matcha Tasting Night",
+      name: "The New Flavours Drop!",
       venue: "KefiYo, Merrion Street",
-      date: "Saturday, 20 September 2026",
+      date: "15th September",
       month: "September 2026",
-      time: "6:00 PM – 8:00 PM",
-      cost: "£10 per person",
-      desc: "A guided tasting through our full matcha range with the team behind the counter — grades, origins, and how we make each drink."
-    },
-    {
-      name: "Açaí Bowl Building Workshop",
-      venue: "KefiYo, Merrion Street",
-      date: "Saturday, 27 September 2026",
-      month: "September 2026",
-      time: "11:00 AM – 12:30 PM",
-      cost: "£15 per person",
-      desc: "Build your own açaí bowl from scratch and learn our base recipe, plus a few combinations we don't usually put on the menu."
-    },
-    {
-      name: "Frozen Yogurt Flavour Launch",
-      venue: "KefiYo, Merrion Street",
-      date: "Friday, 10 October 2026",
-      month: "October 2026",
-      time: "5:00 PM – 7:00 PM",
-      desc: "First taste of our new seasonal frozen yogurt flavour, free samples while they last."
+      time: "4:00 PM – 8:00 PM",
+      desc: "Hey! We have something exciting to share! 🍦✨\nKefiyo is bringing some delicious newness to the table, and we'd absolutely love for you to be a part of it! 💛\nJoin us for an evening filled with new frozen yogurt flavours, fun conversations & plenty of scoops!\nCan't wait to have you with us! 💚"
     }
   ]
 
