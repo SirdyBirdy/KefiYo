@@ -149,7 +149,7 @@ var CONTENT = {
     eyebrow: "@kefiyo",
     heading: "Seen in Leeds",
     sticker: "Come say hi 👋",
-    url: "https://instagram.com/kefiyo",
+    url: "https://instagram.com/kefi.yo",
     followLabel: "Follow us on Instagram",
     videos: [
       "assets/videos/instagram-1.mp4",
