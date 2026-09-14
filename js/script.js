@@ -584,27 +584,26 @@ function renderEventsPage() {
     listEl.innerHTML = ev.events.map(function (e) {
       var message = 'Hi, I would like to find out about ' + e.name;
       var waLink = whatsapp ? ('https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(message)) : '#';
-      var cost = e.cost ? '<div class="price">' + escapeHTML(e.cost) + '</div>' : '<div class="price"></div>';
+      var cost = e.cost ? '<span class="price">' + escapeHTML(e.cost) + '</span>' : '';
       var desc = e.desc ? '<p class="event-desc">' + escapeHTML(e.desc) + '</p>' : '';
       var hasAsset = !!e.asset;
       var isVideo = hasAsset && /\.(mp4|webm|mov|m4v)$/i.test(e.asset);
       var media = hasAsset
-        ? '<div class="event-media">' +
+        ? '<div class="event-card-media">' +
           (isVideo
             ? '<video src="' + e.asset + '" autoplay muted loop playsinline></video>'
             : '<img src="' + e.asset + '" alt="' + escapeHTML(e.name) + '">') +
           '</div>'
         : '';
-      return '<div class="row' + (hasAsset ? ' has-media' : '') + '" data-month="' + escapeHTML(e.month || '') + '">' +
+      return '<article class="event-card" data-month="' + escapeHTML(e.month || '') + '">' +
         media +
-        '<div>' +
-        '<h4>' + escapeHTML(e.name) + '</h4>' +
-        '<span>' + escapeHTML(e.date) + ' · ' + escapeHTML(e.time) + ' · ' + escapeHTML(e.venue) + '</span>' +
+        '<div class="event-card-body">' +
+        '<div class="event-card-top"><h3>' + escapeHTML(e.name) + '</h3>' + cost + '</div>' +
+        '<div class="event-meta">' + escapeHTML(e.date) + ' · ' + escapeHTML(e.time) + ' · ' + escapeHTML(e.venue) + '</div>' +
         desc +
-        '<a href="' + waLink + '" target="_blank" rel="noopener" class="btn ghost event-cta">Find out more</a>' +
+        '<a href="' + waLink + '" target="_blank" rel="noopener" class="btn event-cta">Find out more</a>' +
         '</div>' +
-        cost +
-        '</div>';
+        '</article>';
     }).join('');
   }
 }
@@ -619,7 +618,7 @@ function wireEventsFilter() {
     filterEl.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('on'); });
     chip.classList.add('on');
     var month = chip.dataset.month;
-    listEl.querySelectorAll('.row').forEach(function (row) {
+    listEl.querySelectorAll('.event-card').forEach(function (row) {
       var match = month === 'all' || row.dataset.month === month;
       row.classList.toggle('is-hidden', !match);
     });
