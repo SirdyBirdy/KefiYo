@@ -187,7 +187,7 @@ var CONTENT = {
   final: {
     eyebrow: "Come say hi",
     heading: "Your main-character moment is one swirl away",
-    address: "Merrion Street, Leeds · Open daily 11am – 9pm",
+    address: "17 Ash Rd, Headingley, Leeds LS6 3JJ · Open daily 11am – 9pm",
     button: { label: "Get directions", href: "https://maps.app.goo.gl/3xj619SGTdadP82F9" }
   },
 
@@ -197,15 +197,15 @@ var CONTENT = {
   business: {
     name: "KefiYo",
     description: "Frozen yogurt, açaí, matcha and coffee counter in Leeds. Fresh daily, vegan options, live cultures.",
-    streetAddress: "Merrion Street",
+    streetAddress: "17 Ash Rd, Headingley",
     city: "Leeds",
-    postalCode: "",
+    postalCode: "LS6 3JJ",
     country: "GB",
-    phone: "",
+    phone: "+447568657433",
     priceRange: "££",
     openingHours: "Mo-Su 11:00-21:00",
     logo: "assets/images/logo.png",
-    siteUrl: "https://www.kefiyo.co.uk/",
+    siteUrl: "https://www.kefiyo.com/",
     /* Used for the "Find out more" buttons on the Events page. Digits
        only, country code first, no +, no spaces or dashes — e.g. a UK
        number 07123 456789 becomes "447123456789". Leave blank and those
@@ -234,9 +234,9 @@ var CONTENT = {
   /* Add MP3 files to assets/audio/ and list them here.
      "cover" is optional — leave "" for a plain numbered label. */
   playlist: [
-    { title: "Track One", artist: "KefiYo Radio", src: "assets/audio/track-1.mp3", cover: "" },
-    { title: "Track Two", artist: "KefiYo Radio", src: "assets/audio/track-2.mp3", cover: "" },
-    { title: "Track Three", artist: "KefiYo Radio", src: "assets/audio/track-3.mp3", cover: "" }
+    { title: "Spin the Swirl", artist: "KefiYo Radio", src: "assets/audio/track-1.mp3", cover: "" },
+    { title: "Açaí Contact", artist: "KefiYo Radio", src: "assets/audio/track-2.mp3", cover: "" },
+    { title: "Matcha Made in Heaven", artist: "KefiYo Radio", src: "assets/audio/track-3.mp3", cover: "" }
   ]
 
 };
