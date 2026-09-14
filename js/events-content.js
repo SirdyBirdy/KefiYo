@@ -58,7 +58,7 @@ var EVENTS_PAGE_CONTENT = {
       date: "15th September",
       month: "September 2026",
       time: "4:00 PM – 8:00 PM",
-      desc: "Hey! We have something exciting to share! 🍦✨\nKefiyo is bringing some delicious newness to the table, and we'd absolutely love for you to be a part of it! 💛\nJoin us for an evening filled with new frozen yogurt flavours, fun conversations & plenty of scoops!\nCan't wait to have you with us! 💚"
+      desc: "Hey! We have something exciting to share! 🍦✨\nKefiyo is bringing some delicious newness to the table, and we'd absolutely love for you to be a part of it! 💛\nJoin us for an evening filled with new frozen yogurt flavours, fun conversations & plenty of scoops!\nCan't wait to have you with us! 💚",
       asset: "assets/events/flavours-drop.mp4",
     }
   ]
