@@ -60,7 +60,13 @@ Open the file and add a new `{ ... }` block to the `events` array — copy an
 existing one and change the values. Each event needs:
 - `name`, `venue`, `date`, `month`, `time` — all required
 - `cost` — optional, delete the line entirely for free events
-- `desc` — optional, a sentence or two about the event
+- `desc` — optional, a sentence or a few about the event. Use `\n` inside
+  the text wherever you want a line break
+- `asset` — optional, a photo or video for the event. Just give the file
+  path (e.g. `"assets/images/events/flavours-drop.jpg"`) — it automatically
+  shows as an image or a silent looping video based on the file extension.
+  Leave the line out entirely for events with no photo/video yet; the event
+  still displays fine as text-only.
 
 **Order matters here — it's deliberate.** Events are NOT automatically
 sorted by date. They display in exactly the order you list them in the file.
