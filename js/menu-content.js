@@ -27,7 +27,7 @@ var MENU_PAGE_CONTENT = {
       note: "Creamy, tangy frozen yogurt — the KefiYo way.",
       items: [
         { name: "Flavours", desc: "Natural, Caramelised Banana, Ruhbarb, Orange Chocolate, Tiramisu, Apple Pie, Biscoff" },
-      { name: "Flavour of the Day", desc: "Pistachio (Large Size Only)", price: "+£7.99" }
+      { name: "Flavour of the Day", desc: "Pistachio (Large Size Only)", price: "+£7.99" },
         { name: "Vegan Flavour of the Week", desc: "Coconut", price: "+£0.49" },
         { name: "Small Cup", desc: "Unlimited toppings", price: "£4.49" },
         { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49" },
