@@ -438,8 +438,14 @@ function renderFullMenuPage() {
       var rows = cat.items.map(function (row) {
         var badge = row.badge ? '<span class="badge">' + escapeHTML(row.badge) + '</span>' : '';
         var desc = row.desc ? '<span>' + escapeHTML(row.desc) + '</span>' : '';
+        var tags = row.tags && row.tags.length
+          ? '<div class="flavour-tags">' + row.tags.map(function (t) {
+              return '<span class="flavour-tag">' + escapeHTML(t) + '</span>';
+            }).join('') + '</div>'
+          : '';
         var price = row.price ? '<div class="price">' + escapeHTML(row.price) + '</div>' : '<div class="price"></div>';
-        return '<div class="row"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' + desc + '</div>' + price + '</div>';
+        var rowClass = row.highlight ? 'row row-highlight' : 'row';
+        return '<div class="' + rowClass + '"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' + desc + tags + '</div>' + price + '</div>';
       }).join('');
       return '<div class="menu-category">' +
         '<div class="menu-category-head">' + (CHIP_ICONS[cat.icon] || '') + '<h3>' + escapeHTML(cat.name) + '</h3></div>' +

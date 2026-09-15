@@ -8,6 +8,13 @@
      - keep commas between items
      - "badge" and "desc" are optional — delete the whole line if
        an item doesn't need one
+     - "tags" is an optional array — use it instead of "desc" to show
+       a list of options as individual pills rather than one line of
+       comma-separated text (used for things like the flavour list).
+       e.g. tags: ["Coconut", "Mango", "Strawberry"]
+     - "highlight": true makes an item stand out with a colored
+       callout instead of blending in with the rest of the list —
+       use sparingly, for one-off specials like a flavour of the day
      - "note" (under each category name) is optional too
      - "icon" must be one of: froyo, acai, matcha, coffee, toppings
    ============================================================ */
@@ -26,9 +33,9 @@ var MENU_PAGE_CONTENT = {
       icon: "froyo",
       note: "Creamy, tangy frozen yogurt — the KefiYo way.",
       items: [
-        { name: "Flavours", desc: "Natural, Caramelised Banana, Ruhbarb, Orange Chocolate, Tiramisu, Apple Pie, Biscoff" },
-      { name: "Flavour of the Day", desc: "Pistachio (Large Size Only)", price: "+£7.99" },
-        { name: "Vegan Flavour of the Week", desc: "Coconut", price: "+£0.49" },
+        { name: "Flavours", tags: ["Natural", "Caramelised Banana", "Rhubarb", "Orange Chocolate", "Tiramisu", "Apple Pie", "Biscoff"] },
+        { name: "Flavour of the Day", desc: "Pistachio (large size only)", price: "£7.99", highlight: true },
+        { name: "Vegan Flavour of the Week", tags: ["Coconut"], price: "+£0.49" },
         { name: "Small Cup", desc: "Unlimited toppings", price: "£4.49" },
         { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49" },
         { name: "Large Cup", desc: "Unlimited toppings", price: "£6.49" },
