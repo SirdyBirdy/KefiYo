@@ -149,7 +149,7 @@ var CONTENT = {
     eyebrow: "@kefiyo",
     heading: "Seen in Leeds",
     sticker: "Come say hi 👋",
-    url: "https://instagram.com/kefi.yo",
+    url: "https://www.instagram.com/kefi.yo",
     followLabel: "Follow us on Instagram",
     videos: [
       "assets/videos/instagram-1.mp4",
@@ -187,7 +187,7 @@ var CONTENT = {
   final: {
     eyebrow: "Come say hi",
     heading: "Your main-character moment is one swirl away",
-    address: "17 Ash Rd, Headingley, Leeds LS6 3JJ · Open daily 11am – 9pm",
+    address: "17 Ash Rd, Headingley, Leeds LS6 3JJ · Open daily 10am – 11pm",
     button: { label: "Get directions", href: "https://maps.app.goo.gl/3xj619SGTdadP82F9" }
   },
 
@@ -203,7 +203,7 @@ var CONTENT = {
     country: "GB",
     phone: "+447568657433",
     priceRange: "££",
-    openingHours: "Mo-Su 11:00-21:00",
+    openingHours: "Mo-Su 10:00-23:00",
     logo: "assets/images/logo.png",
     siteUrl: "https://www.kefiyo.com/",
     /* Used for the "Find out more" buttons on the Events page. Digits
@@ -214,11 +214,16 @@ var CONTENT = {
   },
 
   /* ---------- Footer ---------- */
-  /* The two footer links (Instagram, Contact) aren't set here — they're
-     built automatically from instagram.url above and business.whatsapp,
-     so there's nothing to duplicate or keep in sync. */
+  /* The footer links (Instagram, TikTok, Contact) aren't set here — they're
+     built automatically from instagram.url/tiktok.url above and
+     business.whatsapp, so there's nothing to duplicate or keep in sync. */
   footer: {
     copyright: "© KefiYo 2026"
+  },
+
+  /* ---------- TikTok ---------- */
+  tiktok: {
+    url: "https://www.tiktok.com/@kefiyo.leeds"
   },
 
   /* ---------- Mobile floating nav (bottom pill) ---------- */

@@ -260,6 +260,7 @@ function renderFinal() {
   }
   if (footer) {
     var igUrl = CONTENT.instagram && CONTENT.instagram.url;
+    var ttUrl = CONTENT.tiktok && CONTENT.tiktok.url;
     var whatsapp = CONTENT.business && CONTENT.business.whatsapp;
     var contactHref = whatsapp
       ? ('https://wa.me/' + whatsapp + '?text=' + encodeURIComponent('Hi, I have a question for KefiYo'))
@@ -268,6 +269,7 @@ function renderFinal() {
       '<span>' + escapeHTML(ft.copyright) + '</span>' +
       '<div class="footer-links">' +
       (igUrl ? '<a href="' + igUrl + '" target="_blank" rel="noopener">Instagram</a>' : '') +
+      (ttUrl ? '<a href="' + ttUrl + '" target="_blank" rel="noopener">TikTok</a>' : '') +
       '<a href="' + contactHref + '" target="_blank" rel="noopener">Contact</a>' +
       '</div>';
   }
