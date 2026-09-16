@@ -19,6 +19,18 @@ function escapeHTML(str) {
     .replace(/\n/g, '<br>');
 }
 
+/* Used for menu/event row descriptions specifically. Same escaping as
+   above, but if the text contains "Step 1:", "Step 2:" etc (like the
+   Açaí "Build Your Own" description), each step automatically gets its
+   own line and a bold label — no need to manually add line breaks for
+   this in content.js/menu-content.js, it's detected automatically. */
+function formatRowDesc(str) {
+  var escaped = escapeHTML(str);
+  return escaped
+    .replace(/(Step \d+:)/g, '<br><strong>$1</strong>')
+    .replace(/^(<br>)+/, '');
+}
+
 var CHIP_ICONS = {
   froyo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 0-5.2 2-5.2 4.5S9 12 12 12s5.2-2 5.2-4.5S15 3 12 3Z"/><path d="M8.3 12c-.3 4 1.6 7.7 3.7 9 2.1-1.3 4-5 3.7-9"/></svg>',
   acai: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-16 0Z"/><circle cx="9" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="6.3" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="8" r="1" fill="currentColor" stroke="none"/></svg>',
@@ -167,7 +179,7 @@ function renderMenu() {
     items.innerHTML = m.items.map(function (row) {
       var badge = row.badge ? '<span class="badge">' + escapeHTML(row.badge) + '</span>' : '';
       return '<div class="row" data-category="' + escapeHTML(row.category || '') + '"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' +
-        '<span>' + escapeHTML(row.desc) + '</span></div>' +
+        '<span>' + formatRowDesc(row.desc) + '</span></div>' +
         '<div class="price">' + escapeHTML(row.price) + '</div></div>';
     }).join('');
   }
@@ -437,7 +449,7 @@ function renderFullMenuPage() {
       var note = cat.note ? '<p class="lede" style="margin-bottom:20px">' + escapeHTML(cat.note) + '</p>' : '';
       var rows = cat.items.map(function (row) {
         var badge = row.badge ? '<span class="badge">' + escapeHTML(row.badge) + '</span>' : '';
-        var desc = row.desc ? '<span>' + escapeHTML(row.desc) + '</span>' : '';
+        var desc = row.desc ? '<span>' + formatRowDesc(row.desc) + '</span>' : '';
         var tags = row.tags && row.tags.length
           ? '<div class="flavour-tags">' + row.tags.map(function (t) {
               return '<span class="flavour-tag">' + escapeHTML(t) + '</span>';
@@ -593,7 +605,7 @@ function renderEventsPage() {
       var message = 'Hi, I would like to find out about ' + e.name;
       var waLink = whatsapp ? ('https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(message)) : '#';
       var cost = e.cost ? '<span class="price">' + escapeHTML(e.cost) + '</span>' : '';
-      var desc = e.desc ? '<p class="event-desc">' + escapeHTML(e.desc) + '</p>' : '';
+      var desc = e.desc ? '<p class="event-desc">' + formatRowDesc(e.desc) + '</p>' : '';
       var hasAsset = !!e.asset;
       var isVideo = hasAsset && /\.(mp4|webm|mov|m4v)$/i.test(e.asset);
       var media = hasAsset
