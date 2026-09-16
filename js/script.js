@@ -140,7 +140,7 @@ function renderStory() {
     '</div>';
 
   var video = document.getElementById('storyVideo');
-  if (video) video.src = s.video;
+  if (video) video.dataset.src = s.video;
 }
 
 function renderMenu() {
@@ -190,7 +190,7 @@ function renderInstagram() {
   }
   if (grid) {
     grid.innerHTML = ig.videos.map(function (src) {
-      return '<div><video autoplay muted loop playsinline src="' + src + '"></video></div>';
+      return '<div><video class="lazy-video" muted loop playsinline preload="none" data-src="' + src + '"></video></div>';
     }).join('');
   }
   if (follow && ig.url) {
@@ -213,7 +213,7 @@ function renderGift() {
       '<div class="cardart cardart-slider" id="giftSlider">' +
       '<div class="cardart-slides">' +
       g.images.map(function (img, i) {
-        return '<img src="' + img.src + '" alt="' + escapeHTML(img.alt || 'KefiYo gift card') + '"' + (i === 0 ? ' class="active"' : '') + '>';
+        return '<img src="' + img.src + '" alt="' + escapeHTML(img.alt || 'KefiYo gift card') + '" loading="lazy"' + (i === 0 ? ' class="active"' : '') + '>';
       }).join('') +
       '</div>' +
       '<button type="button" class="cardart-nav prev" aria-label="Previous design">' +
@@ -230,7 +230,7 @@ function renderGift() {
       '</div>';
   } else if (hasImages) {
     // Exactly one image — just show it, no slider chrome needed.
-    cardArtHTML = '<div class="cardart cardart-images"><img src="' + g.images[0].src + '" alt="' + escapeHTML(g.images[0].alt || 'KefiYo gift card') + '"></div>';
+    cardArtHTML = '<div class="cardart cardart-images"><img src="' + g.images[0].src + '" alt="' + escapeHTML(g.images[0].alt || 'KefiYo gift card') + '" loading="lazy"></div>';
   } else {
     cardArtHTML = '<div class="cardart"><img class="cardart-logo" src="assets/images/logo.png" alt="KefiYo"><span class="amt">' + escapeHTML(g.cardLabel) + '</span></div>';
   }
@@ -599,8 +599,8 @@ function renderEventsPage() {
       var media = hasAsset
         ? '<div class="event-card-media">' +
           (isVideo
-            ? '<video src="' + e.asset + '" autoplay muted loop playsinline></video>'
-            : '<img src="' + e.asset + '" alt="' + escapeHTML(e.name) + '">') +
+            ? '<video class="lazy-video" muted loop playsinline preload="none" data-src="' + e.asset + '"></video>'
+            : '<img src="' + e.asset + '" alt="' + escapeHTML(e.name) + '" loading="lazy">') +
           '</div>'
         : '';
       return '<article class="event-card" data-month="' + escapeHTML(e.month || '') + '">' +
@@ -634,6 +634,39 @@ function wireEventsFilter() {
 }
 
 /* ---------------------------------------------------------- */
+/* Lazy-load below-the-fold videos                              */
+/* ---------------------------------------------------------- */
+/* Videos marked class="lazy-video" with a data-src (instead of
+   src) don't download or play until they're about to scroll into
+   view. This is the single biggest lever for page-load speed on a
+   site with several autoplaying videos — without it, every video
+   on the page starts downloading at once, regardless of whether
+   the visitor ever scrolls far enough to see it. */
+
+function initLazyVideos() {
+  var videos = document.querySelectorAll('.lazy-video[data-src]');
+  if (!videos.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    // Very old browser fallback — just load everything immediately.
+    videos.forEach(function (v) { v.src = v.dataset.src; v.play().catch(function () {}); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var v = entry.target;
+      v.src = v.dataset.src;
+      v.play().catch(function () {});
+      observer.unobserve(v);
+    });
+  }, { rootMargin: '200px 0px' }); // start loading slightly before it's on-screen
+
+  videos.forEach(function (v) { observer.observe(v); });
+}
+
+/* ---------------------------------------------------------- */
 /* Boot                                                         */
 /* ---------------------------------------------------------- */
 
@@ -655,5 +688,6 @@ document.addEventListener('DOMContentLoaded', function () {
   wireMenuChips();
   wireEventsFilter();
   wireGiftSlider();
+  initLazyVideos();
   initVinylPlayer();
 });
