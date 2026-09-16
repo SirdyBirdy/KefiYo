@@ -109,7 +109,9 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .row:nth-child(3n+1) h4::before{background:var(--pink)}
 .row:nth-child(3n+2) h4::before{background:var(--matcha)}
 .row:nth-child(3n) h4::before{background:var(--wasabi)}
-.row span{font-size:13px;color:rgba(29,28,17,.5);display:block;margin-top:4px}
+.row span{font-size:14.5px;color:rgba(29,28,17,.68);line-height:1.65;display:block;margin-top:6px;max-width:60ch}
+.row span strong{color:var(--deep);font-weight:700}
+.row span br + strong{display:inline-block;margin-top:4px}
 .row h4 .badge{display:inline-block;background:var(--pink);color:var(--ink);border-radius:999px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;margin-left:10px;vertical-align:2px;line-height:1.4;margin-top:0}
 
 /* flavour listicle (pills instead of comma-separated text) */
