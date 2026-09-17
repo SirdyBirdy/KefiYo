@@ -120,7 +120,7 @@ var CONTENT = {
       { name: "Frozen Yogurt", desc: "Small cup, unlimited toppings", price: "£4.49", category: "froyo" },
       { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49", category: "froyo" },
       { name: "Large Cup", desc: "Unlimited toppings", price: "£6.49", category: "froyo" },
-      { name: "Vegan Flavour of the Week", desc: "Mix Berry", price: "+£0.49", category: "froyo" },
+      { name: "Vegan Flavour of the Week", desc: "Coconut", price: "+£0.49", category: "froyo" },
       { name: "Premium Drips", desc: "Nutella, peanut butter, salted caramel & more", price: "+£0.49", category: "froyo" },
       /* Açaí */
       { name: "Amazon Energy", badge: "Most loved", desc: "Açaí, banana, mixed berries, granola", price: "£6.99", category: "acai" },
