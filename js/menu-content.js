@@ -15,12 +15,12 @@
      - "highlight": true makes an item stand out with a colored
        callout instead of blending in with the rest of the list —
        use sparingly, for one-off specials like a flavour of the day
-     - for an item sold in more than one size, keep "price" as the
-       starting price ("from £6.99") and spell out each size in
-       plain text inside "desc" — e.g. "Medium £6.99 / Large £7.99"
-       — see Flavour of the Day below for the real example. (The
-       page prints "desc" as plain text, not HTML, so don't put
-       tags like <br> or <span> in it — they'll show up literally.)
+     - for an item sold in more than one size (its own price for
+       each), don't try to cram it into one row — the price column
+       only holds one value per row. Instead, add one row per size,
+       each with "highlight": true so they visually group together,
+       and put the shared name in each row's own name so it reads
+       naturally (see the two Flavour of the Day rows below)
      - "note" (under each category name) is optional too
      - "icon" must be one of: froyo, acai, matcha, coffee, toppings
    ============================================================ */
@@ -40,7 +40,8 @@ var MENU_PAGE_CONTENT = {
       note: "Creamy, tangy frozen yogurt — the KefiYo way.",
       items: [
         { name: "Flavours", tags: ["Natural", "Caramelised Banana", "Rhubarb", "Orange Chocolate", "Tiramisu", "Apple Pie", "Biscoff"] },
-        { name: "Flavour of the Day", desc: "Pistachio — Medium £6.99 / Large £7.99", price: "from £6.99", highlight: true },
+        { name: "Flavour of the Day: Pistachio", desc: "Medium", price: "£6.99", highlight: true },
+        { name: "Flavour of the Day: Pistachio", desc: "Large", price: "£7.99", highlight: true },
         { name: "Vegan Flavour of the Week", tags: ["Coconut"], price: "+£0.49" },
         { name: "Small Cup", desc: "Unlimited toppings", price: "£4.49" },
         { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49" },
