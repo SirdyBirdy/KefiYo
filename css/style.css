@@ -104,22 +104,30 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .row:last-child{border-bottom:1px solid color-mix(in srgb, var(--ink) 12%, transparent)}
 .row:hover{background:rgba(255,255,255,.85);padding-left:18px}
 .row.is-hidden{display:none}
-.row .event-desc{margin-top:8px;font-size:13.5px;color:rgba(29,28,17,.62);line-height:1.6;max-width:56ch}
-.row .event-cta{margin-top:14px;padding:10px 22px;font-size:11px}
 .row h4{font-size:17px;font-weight:400}
 .row h4::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:12px;vertical-align:2px}
 .row:nth-child(3n+1) h4::before{background:var(--pink)}
 .row:nth-child(3n+2) h4::before{background:var(--matcha)}
 .row:nth-child(3n) h4::before{background:var(--wasabi)}
 .row span{font-size:14.5px;color:rgba(29,28,17,.68);line-height:1.65;display:block;margin-top:6px;max-width:60ch}
-.row span strong{color:var(--deep);font-weight:700;letter-spacing:.03em}
+.row span strong{color:var(--deep);font-weight:700}
+.row span br + strong{display:inline-block;margin-top:4px}
 .row h4 .badge{display:inline-block;background:var(--pink);color:var(--ink);border-radius:999px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;margin-left:10px;vertical-align:2px;line-height:1.4;margin-top:0}
-.price{font-family:'Shrikhand',cursive;font-weight:400;color:var(--wasabi);font-size:16px}
-.menufoot{display:flex;justify-content:center;padding-top:clamp(28px,4vw,48px)}
 
 /* flavour listicle (pills instead of comma-separated text) */
 .flavour-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .flavour-tag{background:var(--wasabi);color:var(--cream);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+
+/* size options — for items sold in more than one size, e.g. the
+   flavour of the day at a medium and a large price. The `.row `
+   prefix on each selector is deliberate: `.row span` above is more
+   specific than a bare class and would otherwise force these pills
+   to stack as blocks. */
+.row .size-options{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;max-width:none}
+.row .size-option{display:inline-flex;align-items:baseline;gap:8px;margin-top:0;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:rgba(29,28,17,.65);white-space:nowrap}
+.row .size-option b{font-family:'Shrikhand',cursive;font-weight:400;font-size:15px;color:var(--wasabi);text-transform:none;letter-spacing:0}
+.row.row-highlight .size-option{border-color:transparent}
+.row.row-highlight .size-option b{color:var(--pink)}
 
 /* highlighted item (e.g. flavour of the day) */
 .row.row-highlight{background:color-mix(in srgb, var(--pink) 18%, var(--white));border-radius:18px;padding:22px 20px;margin:6px 0;border-top:none}
@@ -127,11 +135,8 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .row.row-highlight h4{position:relative;padding-left:0}
 .row.row-highlight h4::before{content:"Today";position:static;display:inline-block;width:auto;height:auto;border-radius:999px;background:var(--deep);color:var(--cream);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;margin-right:10px;vertical-align:2px}
 .row.row-highlight .price{color:var(--pink);font-size:20px}
-.row-sizes{display:flex;flex-direction:column;gap:2px;align-items:flex-end}
-.row-sizes .size-line{display:flex;align-items:baseline;gap:8px}
-.row-sizes .size-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(29,28,17,.5)}
-.row-sizes .size-price{font-family:'Shrikhand',cursive;font-weight:400;color:var(--wasabi);font-size:16px}
-.row.row-highlight .row-sizes .size-price{color:var(--pink);font-size:18px}
+.price{font-family:'Shrikhand',cursive;font-weight:400;color:var(--wasabi);font-size:16px}
+.menufoot{display:flex;justify-content:center;padding-top:clamp(28px,4vw,48px)}
 
 /* insta */
 .igsection{background:color-mix(in srgb, var(--pink) 20%, var(--white));position:relative;overflow:hidden}
@@ -162,6 +167,7 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 .cardart .amt{font-family:'Shrikhand',cursive;font-size:clamp(20px,2.6vw,30px);color:var(--deep);text-align:center;letter-spacing:.01em}
 .cardart.cardart-images{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:0;background:var(--cream)}
 .cardart.cardart-images img{width:100%;height:100%;object-fit:cover;display:block}
+
 .cardart-slider{padding:0;background:var(--cream);position:relative}
 .cardart-slides{position:relative;width:100%;height:100%}
 .cardart-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease}
