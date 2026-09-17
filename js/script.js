@@ -52,13 +52,26 @@ function navHref(href) {
   return href;
 }
 
-/* External links (e.g. the Square gift card checkout) should open in a
-   new tab rather than navigating away from the site. */
+/* External links (e.g. the Square gift card checkout, Google Maps)
+   should open in a new tab rather than navigating away from the site. */
 function isExternal(href) {
   return /^https?:\/\//.test(href);
 }
 function externalAttrs(href) {
   return isExternal(href) ? ' target="_blank" rel="noopener"' : '';
+}
+
+/* Renders either a single "price" string, or a "sizes" array like
+   [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }]
+   as two (or more) stacked size/price lines within the same price slot —
+   used for items that come in more than one size, e.g. Flavour of the Day. */
+function renderPriceSlot(row) {
+  if (row.sizes && row.sizes.length) {
+    return '<div class="row-sizes">' + row.sizes.map(function (s) {
+      return '<div class="size-line"><span class="size-label">' + escapeHTML(s.label) + '</span><span class="size-price">' + escapeHTML(s.price) + '</span></div>';
+    }).join('') + '</div>';
+  }
+  return row.price ? '<div class="price">' + escapeHTML(row.price) + '</div>' : '<div class="price"></div>';
 }
 
 /* ---------------------------------------------------------- */
@@ -220,7 +233,6 @@ function renderGift() {
   var cardArtHTML;
 
   if (hasImages && g.images.length > 1) {
-    // Multiple images — render as a slider with arrows + dots.
     cardArtHTML =
       '<div class="cardart cardart-slider" id="giftSlider">' +
       '<div class="cardart-slides">' +
@@ -241,7 +253,6 @@ function renderGift() {
       '</div>' +
       '</div>';
   } else if (hasImages) {
-    // Exactly one image — just show it, no slider chrome needed.
     cardArtHTML = '<div class="cardart cardart-images"><img src="' + g.images[0].src + '" alt="' + escapeHTML(g.images[0].alt || 'KefiYo gift card') + '" loading="lazy"></div>';
   } else {
     cardArtHTML = '<div class="cardart"><img class="cardart-logo" src="assets/images/logo.png" alt="KefiYo"><span class="amt">' + escapeHTML(g.cardLabel) + '</span></div>';
@@ -297,134 +308,6 @@ function renderIsland() {
 }
 
 /* ---------------------------------------------------------- */
-/* Interactions (event delegation)                             */
-/* ---------------------------------------------------------- */
-
-function applyMenuFilter(category) {
-  var items = document.getElementById('menuItems');
-  if (!items) return;
-  items.querySelectorAll('.row').forEach(function (row) {
-    var match = !category || row.dataset.category === category;
-    row.classList.toggle('is-hidden', !match);
-  });
-}
-
-function wireMenuChips() {
-  var chips = document.getElementById('menuChips');
-  if (!chips) return;
-  chips.addEventListener('click', function (e) {
-    var chip = e.target.closest('.chip');
-    if (!chip) return;
-    chips.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('on'); });
-    chip.classList.add('on');
-    applyMenuFilter(chip.dataset.category);
-  });
-  // Apply the filter for whichever chip starts active.
-  var initial = chips.querySelector('.chip.on');
-  if (initial) applyMenuFilter(initial.dataset.category);
-}
-
-/* ---------------------------------------------------------- */
-/* Vinyl music player                                          */
-/* ---------------------------------------------------------- */
-
-function initVinylPlayer() {
-  var player = document.getElementById('vinylPlayer');
-  if (!player) return;
-
-  var playlist = CONTENT.playlist || [];
-  if (!playlist.length) return;
-
-  var audio = document.getElementById('vinylAudio');
-  var discBtn = document.getElementById('vinylDisc');
-  var playBtn = document.getElementById('vinylPlayBtn');
-  var nextBtn = document.getElementById('vinylNextBtn');
-  var prevBtn = document.getElementById('vinylPrevBtn');
-  var titleEl = document.getElementById('vinylTitle');
-  var artistEl = document.getElementById('vinylArtist');
-  var labelEl = document.getElementById('vinylLabel');
-  var statusEl = document.getElementById('vinylStatus');
-
-  var index = 0;
-  var isPlaying = false;
-
-  function setStatus(msg) {
-    if (statusEl) statusEl.textContent = msg || '';
-  }
-
-  function loadTrack(i) {
-    index = (i + playlist.length) % playlist.length;
-    var track = playlist[index];
-    audio.src = track.src;
-    titleEl.textContent = track.title;
-    artistEl.textContent = track.artist;
-    labelEl.innerHTML = track.cover
-      ? '<img src="' + track.cover + '" alt="">'
-      : '<span class="fallback">' + (index + 1) + '</span>';
-    setStatus('');
-  }
-
-  function updatePlayIcon() {
-    playBtn.innerHTML = isPlaying
-      ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'
-      : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-  }
-
-  function play() {
-    var playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.then(function () {
-        isPlaying = true;
-        player.classList.add('playing', 'open');
-        updatePlayIcon();
-      }).catch(function (err) {
-        // Most commonly: the browser blocked autoplay (needs a click — which
-        // this already is), or the audio file itself failed to load (wrong
-        // filename/path in content.js, or an unsupported format).
-        isPlaying = false;
-        player.classList.remove('playing');
-        updatePlayIcon();
-        console.warn('KefiYo vinyl player: could not play track.', err);
-        setStatus('Can\u2019t play this track — check the file exists at ' + audio.src);
-      });
-    }
-  }
-
-  function pause() {
-    audio.pause();
-    isPlaying = false;
-    player.classList.remove('playing');
-    updatePlayIcon();
-  }
-
-  function togglePlay() {
-    if (isPlaying) { pause(); } else { play(); }
-  }
-
-  audio.addEventListener('error', function () {
-    setStatus('Track file not found: ' + audio.src);
-  });
-
-  discBtn.addEventListener('click', function () {
-    if (player.classList.contains('open')) {
-      // Already open — close the panel and stop playback.
-      pause();
-      player.classList.remove('open');
-    } else {
-      // Closed — open the panel and start playback.
-      player.classList.add('open');
-      play();
-    }
-  });
-  playBtn.addEventListener('click', togglePlay);
-  nextBtn.addEventListener('click', function () { loadTrack(index + 1); if (isPlaying) play(); });
-  prevBtn.addEventListener('click', function () { loadTrack(index - 1); if (isPlaying) play(); });
-  audio.addEventListener('ended', function () { loadTrack(index + 1); play(); });
-
-  loadTrack(0);
-}
-
-/* ---------------------------------------------------------- */
 /* Full menu page (menu.html only — MENU_PAGE_CONTENT comes     */
 /* from menu-content.js, only loaded on that page)              */
 /* ---------------------------------------------------------- */
@@ -455,9 +338,9 @@ function renderFullMenuPage() {
               return '<span class="flavour-tag">' + escapeHTML(t) + '</span>';
             }).join('') + '</div>'
           : '';
-        var price = row.price ? '<div class="price">' + escapeHTML(row.price) + '</div>' : '<div class="price"></div>';
+        var priceSlot = renderPriceSlot(row);
         var rowClass = row.highlight ? 'row row-highlight' : 'row';
-        return '<div class="' + rowClass + '"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' + desc + tags + '</div>' + price + '</div>';
+        return '<div class="' + rowClass + '"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' + desc + tags + '</div>' + priceSlot + '</div>';
       }).join('');
       return '<div class="menu-category">' +
         '<div class="menu-category-head">' + (CHIP_ICONS[cat.icon] || '') + '<h3>' + escapeHTML(cat.name) + '</h3></div>' +
@@ -470,100 +353,6 @@ function renderFullMenuPage() {
   if (allergyEl && m.allergyNote) {
     allergyEl.innerHTML = '<p class="lede" style="max-width:none;text-align:center;margin:0 auto">' + escapeHTML(m.allergyNote) + '</p>';
   }
-}
-
-/* ---------------------------------------------------------- */
-/* SEO structured data (schema.org, injected as JSON-LD)        */
-/* ---------------------------------------------------------- */
-
-function renderBusinessSchema() {
-  var b = CONTENT.business;
-  if (!b) return;
-  var data = {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": b.name,
-    "description": b.description,
-    "image": b.siteUrl + b.logo,
-    "url": b.siteUrl,
-    "priceRange": b.priceRange,
-    "servesCuisine": ["Frozen Yogurt", "Açaí", "Matcha", "Coffee"],
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": b.streetAddress,
-      "addressLocality": b.city,
-      "postalCode": b.postalCode,
-      "addressCountry": b.country
-    },
-    "openingHours": b.openingHours
-  };
-  if (b.phone) data.telephone = b.phone;
-
-  var script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.textContent = JSON.stringify(data);
-  document.head.appendChild(script);
-}
-
-function renderMenuSchema() {
-  if (typeof MENU_PAGE_CONTENT === 'undefined') return;
-  var b = CONTENT.business || {};
-  var data = {
-    "@context": "https://schema.org",
-    "@type": "Menu",
-    "name": "KefiYo Menu",
-    "hasMenuSection": MENU_PAGE_CONTENT.categories.map(function (cat) {
-      return {
-        "@type": "MenuSection",
-        "name": cat.name,
-        "hasMenuItem": cat.items.map(function (item) {
-          return {
-            "@type": "MenuItem",
-            "name": item.name,
-            "description": item.desc,
-            "offers": {
-              "@type": "Offer",
-              "price": (item.price || '').replace(/[^\d.]/g, ''),
-              "priceCurrency": "GBP"
-            }
-          };
-        })
-      };
-    })
-  };
-
-  var script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.textContent = JSON.stringify(data);
-  document.head.appendChild(script);
-}
-
-/* ---------------------------------------------------------- */
-/* Gift card image slider (only active when 2+ images given)   */
-/* ---------------------------------------------------------- */
-
-function wireGiftSlider() {
-  var slider = document.getElementById('giftSlider');
-  if (!slider) return;
-
-  var slides = slider.querySelectorAll('.cardart-slides img');
-  var dots = slider.querySelectorAll('.dot');
-  var index = 0;
-
-  function goTo(i) {
-    index = (i + slides.length) % slides.length;
-    slides.forEach(function (s, n) { s.classList.toggle('active', n === index); });
-    dots.forEach(function (d, n) { d.classList.toggle('active', n === index); });
-  }
-
-  var prevBtn = slider.querySelector('.cardart-nav.prev');
-  var nextBtn = slider.querySelector('.cardart-nav.next');
-  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
-
-  dots.forEach(function (dot, n) {
-    dot.addEventListener('click', function () { goTo(n); });
-  });
 }
 
 /* ---------------------------------------------------------- */
@@ -587,7 +376,6 @@ function renderEventsPage() {
       '<p class="lede" style="text-align:center">' + escapeHTML(ev.hero.lede) + '</p>';
   }
 
-  // Unique months, in the order they first appear (not sorted).
   var months = [];
   ev.events.forEach(function (e) {
     if (e.month && months.indexOf(e.month) === -1) months.push(e.month);
@@ -646,6 +434,156 @@ function wireEventsFilter() {
 }
 
 /* ---------------------------------------------------------- */
+/* Interactions (event delegation)                             */
+/* ---------------------------------------------------------- */
+
+function applyMenuFilter(category) {
+  var items = document.getElementById('menuItems');
+  if (!items) return;
+  items.querySelectorAll('.row').forEach(function (row) {
+    var match = !category || row.dataset.category === category;
+    row.classList.toggle('is-hidden', !match);
+  });
+}
+
+function wireMenuChips() {
+  var chips = document.getElementById('menuChips');
+  if (!chips) return;
+  chips.addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    chips.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('on'); });
+    chip.classList.add('on');
+    applyMenuFilter(chip.dataset.category);
+  });
+  var initial = chips.querySelector('.chip.on');
+  if (initial) applyMenuFilter(initial.dataset.category);
+}
+
+/* ---------------------------------------------------------- */
+/* Gift card image slider (only active when 2+ images given)   */
+/* ---------------------------------------------------------- */
+
+function wireGiftSlider() {
+  var slider = document.getElementById('giftSlider');
+  if (!slider) return;
+
+  var slides = slider.querySelectorAll('.cardart-slides img');
+  var dots = slider.querySelectorAll('.dot');
+  var index = 0;
+
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    slides.forEach(function (s, n) { s.classList.toggle('active', n === index); });
+    dots.forEach(function (d, n) { d.classList.toggle('active', n === index); });
+  }
+
+  var prevBtn = slider.querySelector('.cardart-nav.prev');
+  var nextBtn = slider.querySelector('.cardart-nav.next');
+  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
+
+  dots.forEach(function (dot, n) {
+    dot.addEventListener('click', function () { goTo(n); });
+  });
+}
+
+/* ---------------------------------------------------------- */
+/* Vinyl music player                                          */
+/* ---------------------------------------------------------- */
+
+function initVinylPlayer() {
+  var player = document.getElementById('vinylPlayer');
+  if (!player) return;
+
+  var playlist = CONTENT.playlist || [];
+  if (!playlist.length) return;
+
+  var audio = document.getElementById('vinylAudio');
+  var discBtn = document.getElementById('vinylDisc');
+  var playBtn = document.getElementById('vinylPlayBtn');
+  var nextBtn = document.getElementById('vinylNextBtn');
+  var prevBtn = document.getElementById('vinylPrevBtn');
+  var titleEl = document.getElementById('vinylTitle');
+  var artistEl = document.getElementById('vinylArtist');
+  var labelEl = document.getElementById('vinylLabel');
+  var statusEl = document.getElementById('vinylStatus');
+
+  var index = 0;
+  var isPlaying = false;
+
+  function setStatus(msg) {
+    if (statusEl) statusEl.textContent = msg || '';
+  }
+
+  function loadTrack(i) {
+    index = (i + playlist.length) % playlist.length;
+    var track = playlist[index];
+    audio.src = track.src;
+    titleEl.textContent = track.title;
+    artistEl.textContent = track.artist;
+    labelEl.innerHTML = track.cover
+      ? '<img src="' + track.cover + '" alt="">'
+      : '<span class="fallback">' + (index + 1) + '</span>';
+    setStatus('');
+  }
+
+  function updatePlayIcon() {
+    playBtn.innerHTML = isPlaying
+      ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  }
+
+  function play() {
+    var playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(function () {
+        isPlaying = true;
+        player.classList.add('playing', 'open');
+        updatePlayIcon();
+      }).catch(function (err) {
+        isPlaying = false;
+        player.classList.remove('playing');
+        updatePlayIcon();
+        console.warn('KefiYo vinyl player: could not play track.', err);
+        setStatus('Can\u2019t play this track — check the file exists at ' + audio.src);
+      });
+    }
+  }
+
+  function pause() {
+    audio.pause();
+    isPlaying = false;
+    player.classList.remove('playing');
+    updatePlayIcon();
+  }
+
+  function togglePlay() {
+    if (isPlaying) { pause(); } else { play(); }
+  }
+
+  audio.addEventListener('error', function () {
+    setStatus('Track file not found: ' + audio.src);
+  });
+
+  discBtn.addEventListener('click', function () {
+    if (player.classList.contains('open')) {
+      pause();
+      player.classList.remove('open');
+    } else {
+      player.classList.add('open');
+      play();
+    }
+  });
+  playBtn.addEventListener('click', togglePlay);
+  nextBtn.addEventListener('click', function () { loadTrack(index + 1); if (isPlaying) play(); });
+  prevBtn.addEventListener('click', function () { loadTrack(index - 1); if (isPlaying) play(); });
+  audio.addEventListener('ended', function () { loadTrack(index + 1); play(); });
+
+  loadTrack(0);
+}
+
+/* ---------------------------------------------------------- */
 /* Lazy-load below-the-fold videos                              */
 /* ---------------------------------------------------------- */
 /* Videos marked class="lazy-video" with a data-src (instead of
@@ -660,7 +598,6 @@ function initLazyVideos() {
   if (!videos.length) return;
 
   if (!('IntersectionObserver' in window)) {
-    // Very old browser fallback — just load everything immediately.
     videos.forEach(function (v) { v.src = v.dataset.src; v.play().catch(function () {}); });
     return;
   }
@@ -673,9 +610,75 @@ function initLazyVideos() {
       v.play().catch(function () {});
       observer.unobserve(v);
     });
-  }, { rootMargin: '200px 0px' }); // start loading slightly before it's on-screen
+  }, { rootMargin: '200px 0px' });
 
   videos.forEach(function (v) { observer.observe(v); });
+}
+
+/* ---------------------------------------------------------- */
+/* SEO structured data (schema.org, injected as JSON-LD)        */
+/* ---------------------------------------------------------- */
+
+function renderBusinessSchema() {
+  var b = CONTENT.business;
+  if (!b) return;
+  var data = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": b.name,
+    "description": b.description,
+    "image": b.siteUrl + b.logo,
+    "url": b.siteUrl,
+    "priceRange": b.priceRange,
+    "servesCuisine": ["Frozen Yogurt", "Açaí", "Matcha", "Coffee"],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": b.streetAddress,
+      "addressLocality": b.city,
+      "postalCode": b.postalCode,
+      "addressCountry": b.country
+    },
+    "openingHours": b.openingHours
+  };
+  if (b.phone) data.telephone = b.phone;
+
+  var script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(data);
+  document.head.appendChild(script);
+}
+
+function renderMenuSchema() {
+  if (typeof MENU_PAGE_CONTENT === 'undefined') return;
+  var data = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "name": "KefiYo Menu",
+    "hasMenuSection": MENU_PAGE_CONTENT.categories.map(function (cat) {
+      return {
+        "@type": "MenuSection",
+        "name": cat.name,
+        "hasMenuItem": cat.items.map(function (item) {
+          var priceText = item.price || (item.sizes && item.sizes[0] && item.sizes[0].price) || '';
+          return {
+            "@type": "MenuItem",
+            "name": item.name,
+            "description": item.desc || '',
+            "offers": {
+              "@type": "Offer",
+              "price": priceText.replace(/[^\d.]/g, ''),
+              "priceCurrency": "GBP"
+            }
+          };
+        })
+      };
+    })
+  };
+
+  var script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(data);
+  document.head.appendChild(script);
 }
 
 /* ---------------------------------------------------------- */
