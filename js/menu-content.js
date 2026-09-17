@@ -12,6 +12,9 @@
        a list of options as individual pills rather than one line of
        comma-separated text (used for things like the flavour list).
        e.g. tags: ["Coconut", "Mango", "Strawberry"]
+     - "sizes" is an optional array of { label, price } pairs — use it
+       instead of "price" when an item comes in more than one size,
+       e.g. sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }]
      - "highlight": true makes an item stand out with a colored
        callout instead of blending in with the rest of the list —
        use sparingly, for one-off specials like a flavour of the day
@@ -34,7 +37,7 @@ var MENU_PAGE_CONTENT = {
       note: "Creamy, tangy frozen yogurt — the KefiYo way.",
       items: [
         { name: "Flavours", tags: ["Natural", "Caramelised Banana", "Rhubarb", "Orange Chocolate", "Tiramisu", "Apple Pie", "Biscoff"] },
-        { name: "Flavour of the Day", desc: "Pistachio (large size only)", price: "£7.99", highlight: true },
+        { name: "Flavour of the Day", desc: "Pistachio", sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }], highlight: true },
         { name: "Vegan Flavour of the Week", tags: ["Coconut"], price: "+£0.49" },
         { name: "Small Cup", desc: "Unlimited toppings", price: "£4.49" },
         { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49" },
