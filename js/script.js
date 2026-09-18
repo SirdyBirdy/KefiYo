@@ -74,6 +74,26 @@ function renderPriceSlot(row) {
   return row.price ? '<div class="price">' + escapeHTML(row.price) + '</div>' : '<div class="price"></div>';
 }
 
+/* Renders one menu row's inner markup (badge, description, flavour-tag
+   pills, price or stacked sizes, highlight styling). Shared between the
+   homepage teaser menu and the full menu page so both can show the same
+   item types (e.g. a tag list like "Flavours", or a multi-size item like
+   "Kefiyo Special Flavour"). Pass withCategory = true to also stamp a
+   data-category attribute for the homepage's chip filter. */
+function renderMenuRow(row, withCategory) {
+  var badge = row.badge ? '<span class="badge">' + escapeHTML(row.badge) + '</span>' : '';
+  var desc = row.desc ? '<span>' + formatRowDesc(row.desc) + '</span>' : '';
+  var tags = row.tags && row.tags.length
+    ? '<div class="flavour-tags">' + row.tags.map(function (t) {
+        return '<span class="flavour-tag">' + escapeHTML(t) + '</span>';
+      }).join('') + '</div>'
+    : '';
+  var priceSlot = renderPriceSlot(row);
+  var rowClass = row.highlight ? 'row row-highlight' : 'row';
+  var catAttr = withCategory ? ' data-category="' + escapeHTML(row.category || '') + '"' : '';
+  return '<div class="' + rowClass + '"' + catAttr + '><div><h4>' + escapeHTML(row.name) + badge + '</h4>' + desc + tags + '</div>' + priceSlot + '</div>';
+}
+
 /* ---------------------------------------------------------- */
 /* Render functions — one per section                          */
 /* ---------------------------------------------------------- */
@@ -190,10 +210,7 @@ function renderMenu() {
   }
   if (items) {
     items.innerHTML = m.items.map(function (row) {
-      var badge = row.badge ? '<span class="badge">' + escapeHTML(row.badge) + '</span>' : '';
-      return '<div class="row" data-category="' + escapeHTML(row.category || '') + '"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' +
-        '<span>' + formatRowDesc(row.desc) + '</span></div>' +
-        '<div class="price">' + escapeHTML(row.price) + '</div></div>';
+      return renderMenuRow(row, true);
     }).join('');
   }
   if (foot) {
@@ -331,16 +348,7 @@ function renderFullMenuPage() {
     sectionsEl.innerHTML = m.categories.map(function (cat) {
       var note = cat.note ? '<p class="lede" style="margin-bottom:20px">' + escapeHTML(cat.note) + '</p>' : '';
       var rows = cat.items.map(function (row) {
-        var badge = row.badge ? '<span class="badge">' + escapeHTML(row.badge) + '</span>' : '';
-        var desc = row.desc ? '<span>' + formatRowDesc(row.desc) + '</span>' : '';
-        var tags = row.tags && row.tags.length
-          ? '<div class="flavour-tags">' + row.tags.map(function (t) {
-              return '<span class="flavour-tag">' + escapeHTML(t) + '</span>';
-            }).join('') + '</div>'
-          : '';
-        var priceSlot = renderPriceSlot(row);
-        var rowClass = row.highlight ? 'row row-highlight' : 'row';
-        return '<div class="' + rowClass + '"><div><h4>' + escapeHTML(row.name) + badge + '</h4>' + desc + tags + '</div>' + priceSlot + '</div>';
+        return renderMenuRow(row, false);
       }).join('');
       return '<div class="menu-category">' +
         '<div class="menu-category-head">' + (CHIP_ICONS[cat.icon] || '') + '<h3>' + escapeHTML(cat.name) + '</h3></div>' +

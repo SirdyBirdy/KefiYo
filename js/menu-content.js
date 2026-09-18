@@ -36,8 +36,8 @@ var MENU_PAGE_CONTENT = {
       icon: "froyo",
       note: "Creamy, tangy frozen yogurt — the KefiYo way.",
       items: [
-        { name: "Flavours", tags: ["Natural", "Caramelised Banana", "Biscoff", "Tiramisu", "Rhubarb", "Mango"] },
-        { name: "Kefiyo Special Flavour", desc: "Pistachio", sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }], highlight: true },
+        { name: "Flavours", tags: ["Natural", "Caramelised Banana", "Rhubarb", "Orange Chocolate", "Tiramisu", "Apple Pie", "Biscoff"] },
+        { name: "Flavour of the Day", desc: "Pistachio", sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }], highlight: true },
         { name: "Vegan Flavour of the Week", tags: ["Coconut"], price: "+£0.49" },
         { name: "Small Cup", desc: "Unlimited toppings", price: "£4.49" },
         { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49" },

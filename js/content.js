@@ -116,12 +116,15 @@ var CONTENT = {
       { label: "Coffee", icon: "coffee" }
     ],
     items: [
-      /* Froyo */
-      { name: "Frozen Yogurt", desc: "Small cup, unlimited toppings", price: "£4.49", category: "froyo" },
+      /* Froyo — full lineup, matching js/menu-content.js */
+      { name: "Flavours", tags: ["Natural", "Caramelised Banana", "Biscoff", "Tiramisu", "Rhubarb", "Mango"], category: "froyo" },
+      { name: "Kefiyo Special Flavour", desc: "Pistachio", sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }], highlight: true, category: "froyo" },
+      { name: "Vegan Flavour of the Week", tags: ["Coconut"], price: "+£0.49", category: "froyo" },
+      { name: "Small Cup", desc: "Unlimited toppings", price: "£4.49", category: "froyo" },
       { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49", category: "froyo" },
       { name: "Large Cup", desc: "Unlimited toppings", price: "£6.49", category: "froyo" },
-      { name: "Vegan Flavour of the Week", desc: "Coconut", price: "+£0.49", category: "froyo" },
-      { name: "Premium Drips", desc: "Nutella, peanut butter, salted caramel & more", price: "+£0.49", category: "froyo" },
+      { name: "Premium Drips", desc: "Nutella, Peanut Butter, Almond Butter, Salted Caramel, Agave Syrup, Honey, Frozen Yogurt, Pistachio", price: "+£0.49", category: "froyo" },
+      { name: "Dietary Notes", desc: "Gluten free and nut free options available. Contains soya.", category: "froyo" },
       /* Açaí */
       { name: "Amazon Energy", badge: "Most loved", desc: "Açaí, banana, mixed berries, granola", price: "£6.99", category: "acai" },
       { name: "The Chill Berry", desc: "Açaí, granola, strawberry, raspberry, goji berry", price: "£6.99", category: "acai" },
