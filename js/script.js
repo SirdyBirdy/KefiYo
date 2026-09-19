@@ -331,6 +331,7 @@ function renderIsland() {
 
 function renderFullMenuPage() {
   var heroEl = document.getElementById('fullMenuHero');
+  var filterEl = document.getElementById('fullMenuFilter');
   var sectionsEl = document.getElementById('fullMenuSections');
   var allergyEl = document.getElementById('menuAllergyNote');
   if (typeof MENU_PAGE_CONTENT === 'undefined' || (!heroEl && !sectionsEl)) return;
@@ -344,13 +345,22 @@ function renderFullMenuPage() {
       '<p class="lede" style="text-align:center">' + escapeHTML(m.hero.lede) + '</p>';
   }
 
+  if (filterEl) {
+    filterEl.innerHTML = m.categories.map(function (cat, i) {
+      return '<span class="chip' + (i === 0 ? ' on' : '') + '" data-category="cat-' + i + '">' +
+        (CHIP_ICONS[cat.icon] || '') +
+        escapeHTML(cat.name) +
+        '</span>';
+    }).join('');
+  }
+
   if (sectionsEl) {
-    sectionsEl.innerHTML = m.categories.map(function (cat) {
+    sectionsEl.innerHTML = m.categories.map(function (cat, i) {
       var note = cat.note ? '<p class="lede" style="margin-bottom:20px">' + escapeHTML(cat.note) + '</p>' : '';
       var rows = cat.items.map(function (row) {
         return renderMenuRow(row, false);
       }).join('');
-      return '<div class="menu-category">' +
+      return '<div class="menu-category" data-category="cat-' + i + '">' +
         '<div class="menu-category-head">' + (CHIP_ICONS[cat.icon] || '') + '<h3>' + escapeHTML(cat.name) + '</h3></div>' +
         note +
         '<div class="menu">' + rows + '</div>' +
@@ -466,6 +476,32 @@ function wireMenuChips() {
   });
   var initial = chips.querySelector('.chip.on');
   if (initial) applyMenuFilter(initial.dataset.category);
+}
+
+/* Full menu page: same tab pattern, but toggles whole category blocks
+   (Frozen Yogurt / Açaí / etc) instead of individual rows, since each
+   category is a full section rather than a mixed list. */
+function applyFullMenuFilter(category) {
+  var sectionsEl = document.getElementById('fullMenuSections');
+  if (!sectionsEl) return;
+  sectionsEl.querySelectorAll('.menu-category').forEach(function (section) {
+    var match = !category || section.dataset.category === category;
+    section.classList.toggle('is-hidden', !match);
+  });
+}
+
+function wireFullMenuChips() {
+  var filterEl = document.getElementById('fullMenuFilter');
+  if (!filterEl) return;
+  filterEl.addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    filterEl.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('on'); });
+    chip.classList.add('on');
+    applyFullMenuFilter(chip.dataset.category);
+  });
+  var initial = filterEl.querySelector('.chip.on');
+  if (initial) applyFullMenuFilter(initial.dataset.category);
 }
 
 /* ---------------------------------------------------------- */
@@ -709,6 +745,7 @@ document.addEventListener('DOMContentLoaded', function () {
   renderMenuSchema();
 
   wireMenuChips();
+  wireFullMenuChips();
   wireEventsFilter();
   wireGiftSlider();
   initLazyVideos();
