@@ -218,6 +218,31 @@ function renderMenu() {
   }
 }
 
+function renderGiveaway() {
+  var stackEl = document.getElementById('giveawayStack');
+  var textEl = document.getElementById('giveawayText');
+  var g = CONTENT.giveaway;
+  if (!g || !stackEl || !textEl) return;
+
+  if (stackEl) {
+    stackEl.innerHTML = (g.videos || []).map(function (src, i) {
+      return '<div class="giveaway-card" data-src="' + src + '" data-i="' + i + '">' +
+        '<video muted playsinline preload="none"></video>' +
+        '</div>';
+    }).join('');
+  }
+  if (textEl) {
+    var button = g.button && g.button.label
+      ? '<a href="' + g.button.href + '" target="_blank" rel="noopener" class="btn">' + escapeHTML(g.button.label) + '</a>'
+      : '';
+    textEl.innerHTML =
+      '<span class="eyebrow">' + escapeHTML(g.eyebrow) + '</span>' +
+      '<h2>' + escapeHTML(g.heading) + '</h2>' +
+      '<p class="lede">' + escapeHTML(g.lede) + '</p>' +
+      button;
+  }
+}
+
 function renderInstagram() {
   var head = document.getElementById('instaHead');
   var grid = document.getElementById('instaGrid');
@@ -637,6 +662,90 @@ function initVinylPlayer() {
    on the page starts downloading at once, regardless of whether
    the visitor ever scrolls far enough to see it. */
 
+/* Giveaway video stack: cards are stacked like a deck. The front card's
+   video plays; when it finishes, it animates to the back of the stack
+   and the next card slides to the front and starts playing — repeating
+   forever through however many videos are listed in content.js.
+
+   Bandwidth note: only the front video and the one about to become
+   front ever have a real "src" set. Every other card sits empty until
+   its turn, and a card's src is released again as soon as it's played
+   and moved to the back — so however many videos get added over time,
+   the browser never has more than two of them loaded at once. */
+function initGiveawayCarousel() {
+  var stackEl = document.getElementById('giveawayStack');
+  if (!stackEl) return;
+  var cards = Array.prototype.slice.call(stackEl.querySelectorAll('.giveaway-card'));
+  if (!cards.length) return;
+
+  var order = cards.map(function (_, i) { return i; });
+  var maxVisible = Math.min(order.length, 4);
+  var started = false;
+
+  function setSrc(card) {
+    var video = card.querySelector('video');
+    if (video.getAttribute('src') !== card.dataset.src) {
+      video.src = card.dataset.src;
+      video.load();
+    }
+  }
+  function clearSrc(card) {
+    var video = card.querySelector('video');
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+  }
+
+  function layout() {
+    order.forEach(function (cardIndex, pos) {
+      var card = cards[cardIndex];
+      if (pos < maxVisible) {
+        card.style.opacity = '1';
+        card.style.zIndex = String(maxVisible - pos);
+        card.style.transform = 'translateY(' + (pos * 14) + 'px) scale(' + (1 - pos * 0.05) + ')';
+      } else {
+        card.style.opacity = '0';
+        card.style.zIndex = '0';
+        card.style.transform = 'translateY(' + (maxVisible * 14) + 'px) scale(' + (1 - maxVisible * 0.05) + ')';
+      }
+    });
+  }
+
+  function playFront() {
+    var front = cards[order[0]];
+    setSrc(front);
+    var video = front.querySelector('video');
+    video.currentTime = 0;
+    video.play().catch(function () {});
+    if (order.length > 1) setSrc(cards[order[1]]); // preload next
+  }
+
+  function advance() {
+    var prevFront = cards[order[0]];
+    clearSrc(prevFront);
+    order.push(order.shift());
+    layout();
+    playFront();
+  }
+
+  cards.forEach(function (card) {
+    var video = card.querySelector('video');
+    video.addEventListener('ended', advance);
+  });
+
+  layout();
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !started) {
+        started = true;
+        playFront();
+      }
+    });
+  }, { threshold: 0.4 });
+  observer.observe(stackEl);
+}
+
 function initLazyVideos() {
   var videos = document.querySelectorAll('.lazy-video[data-src]');
   if (!videos.length) return;
@@ -735,6 +844,7 @@ document.addEventListener('DOMContentLoaded', function () {
   renderFlavours();
   renderStory();
   renderMenu();
+  renderGiveaway();
   renderInstagram();
   renderGift();
   renderFinal();
@@ -749,5 +859,6 @@ document.addEventListener('DOMContentLoaded', function () {
   wireEventsFilter();
   wireGiftSlider();
   initLazyVideos();
+  initGiveawayCarousel();
   initVinylPlayer();
 });

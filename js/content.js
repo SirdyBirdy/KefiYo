@@ -147,6 +147,29 @@ var CONTENT = {
     footerButton: { label: "View the full menu page", href: "menu.html" }
   },
 
+  /* ---------- Giveaway ---------- */
+  /* A stack of videos (like a deck of cards) — one plays through, then
+     slides to the back of the stack while the next one comes to the
+     front and starts playing. Cycles through all of them on repeat.
+
+     To add or remove videos: just add/remove lines in the "videos"
+     array below and drop the matching files into assets/videos/. The
+     stack automatically adjusts to however many you list — no code
+     changes needed. Keep each video reasonably short and compressed;
+     since only the current + next video are ever loaded at once, this
+     stays light on bandwidth no matter how many you add. */
+  giveaway: {
+    eyebrow: "Giveaway",
+    heading: "We're giving something away",
+    lede: "Follow along for a chance to win — details in the videos, new drops added as we go.",
+    button: { label: "Enter on Instagram", href: "https://www.instagram.com/kefi.yo" },
+    videos: [
+      "assets/videos/giveaway_1.mp4",
+      "assets/videos/giveaway_2.mp4",
+      "assets/videos/giveaway_3.mp4"
+    ]
+  },
+
   /* ---------- Instagram grid ---------- */
   instagram: {
     eyebrow: "@kefiyo",
