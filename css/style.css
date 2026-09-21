@@ -80,6 +80,11 @@ header{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdro
 @media(min-width:900px){.bandin{grid-template-columns:1.05fr .95fr}}
 .bandmedia{border-radius:32px;overflow:hidden;aspect-ratio:4/3;background:var(--matcha)}
 .bandtext{display:grid;gap:20px}
+
+/* giveaway video card stack */
+.giveaway-stack{position:relative;max-width:380px;width:100%;margin:0 auto;aspect-ratio:4/5}
+.giveaway-card{position:absolute;inset:0;border-radius:32px;overflow:hidden;background:var(--matcha);box-shadow:0 20px 40px rgba(29,28,17,.2);transition:transform .55s cubic-bezier(.4,0,.2,1),opacity .45s ease;transform-origin:center top;will-change:transform,opacity}
+.giveaway-card video{width:100%;height:100%;object-fit:cover}
 .tickers{display:grid;gap:12px;padding-top:8px}
 .tick{display:flex;gap:14px;align-items:center;border-top:1px solid var(--line);padding-top:14px;font-size:14px;color:rgba(29,28,17,.68)}
 .tick b{font-family:'Shrikhand',cursive;font-weight:400;font-size:13px;width:40px;height:40px;min-width:40px;display:grid;place-items:center;border-radius:50%}
