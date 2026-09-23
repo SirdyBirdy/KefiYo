@@ -27,6 +27,13 @@
      - desc        (optional) — a sentence or a few about the event.
                     Use \n inside the text wherever you want a line
                     break (see README for details).
+     - ticketUrl   (optional) — a direct link to buy tickets (e.g. a
+                    Glofox, Eventbrite or Square checkout link). When
+                    this is set, the button says "Get tickets" and
+                    goes straight there instead of opening WhatsApp.
+                    Leave this line out for events with no ticket
+                    link yet — the button falls back to "Find out
+                    more" via WhatsApp, same as always.
      - asset       (optional) — a photo or video for the event. Just
                     give the file path, e.g.
                     "assets/events/flavours-drop.jpg" — the page
@@ -39,7 +46,9 @@
    The "Find out more" button on every event opens WhatsApp with a
    pre-filled message naming that specific event — nothing to set up
    per event, it's generated automatically from the event's name and
-   the phone number in content.js → business.whatsapp.
+   the phone number in content.js → business.whatsapp. This is
+   automatically replaced with a "Get tickets" button whenever an
+   event has a ticketUrl set (see above).
    ============================================================ */
 
 var EVENTS_PAGE_CONTENT = {
@@ -51,6 +60,17 @@ var EVENTS_PAGE_CONTENT = {
   },
 
   events: [
+    {
+      name: "Halloween Retreat",
+      venue: "Yeadon, Leeds — LS19 7EA",
+      date: "Sunday 18th October 2026",
+      month: "October 2026",
+      time: "10:30 AM – 2:00 PM",
+      cost: "£45 · Early bird £39.99 until 27th September",
+      desc: "Join Auri Pilates x @missholistic_pilates for a magical morning of movement, creativity, wellness and a little Halloween magic. ✨\nCome dressed in your favourite Halloween-inspired look and spend the day moving, creating, connecting and getting into the seasonal spirit with a beautiful community of women.\n\n🖤 What's included\n✨ Reformer Pilates — an energising session suitable for all levels\n🎃 Pumpkin Carving — carve your very own Halloween pumpkin, the perfect autumn activity with the girls\n🔮 Astrology Reading — a special reading from @petalsofneptune\n🍵 Matcha & Açaí — refuel after Pilates with a matcha and açaí bowl from Kefiyo\n\nYour ticket includes the full retreat experience — reformer Pilates, pumpkin carving, astrology reading + refreshments. ✨\n\nCome for the Pilates. Stay for the pumpkins, stars & matcha.\n\nSpaces are limited — grab your ticket and join us for an unforgettable Halloween afternoon.",
+      ticketUrl: "https://app.glofox.com/portal/#/branch/69fb159853175ce93c086215/courses/6aa4fadd201b431b460b4abf/schedule/1789196951964/book",
+      asset: "assets/events/halloween-retreat.jpg"
+    },
     {
       name: "The New Flavours Drop!",
       venue: "KefiYo, 17 Ash Rd, Headingley",

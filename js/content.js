@@ -166,10 +166,7 @@ var CONTENT = {
     videos: [
       "assets/videos/giveaway_1.mp4",
       "assets/videos/giveaway_2.mp4",
-      "assets/videos/giveaway_3.mp4",
-       "assets/videos/giveaway_4.mp4",
-       "assets/videos/giveaway_5.mp4",
-       "assets/videos/giveaway_6.mp4"
+      "assets/videos/giveaway_3.mp4"
     ]
   },
 

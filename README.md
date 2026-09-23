@@ -157,7 +157,7 @@ Each page (`index.html`, `menu.html`) has its own SEO block at the top of
 - **`<link rel="canonical">`** — tells Google the "official" URL for the page.
 
 **To edit any of this**, open the relevant `.html` file and change the text
-inside the quotes in that `<head>` block. Update the `https://www.kefiyo.co.uk/`
+inside the quotes in that `<head>` block. Update the `https://www.kefiyo.com/`
 URLs throughout if the real domain is different.
 
 Each page also has exactly one `<h1>` (the big page title — "Where everyday

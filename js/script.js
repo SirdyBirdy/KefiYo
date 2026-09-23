@@ -411,7 +411,6 @@ function renderEventsPage() {
 
   var ev = EVENTS_PAGE_CONTENT;
   var whatsapp = (CONTENT.business && CONTENT.business.whatsapp) || '';
-
   if (heroEl) {
     heroEl.innerHTML =
       '<span class="eyebrow">' + escapeHTML(ev.hero.eyebrow) + '</span>' +
@@ -435,6 +434,8 @@ function renderEventsPage() {
     listEl.innerHTML = ev.events.map(function (e) {
       var message = 'Hi, I would like to find out about ' + e.name;
       var waLink = whatsapp ? ('https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(message)) : '#';
+      var ctaLink = e.ticketUrl || waLink;
+      var ctaLabel = e.ticketUrl ? 'Get tickets' : 'Find out more';
       var cost = e.cost ? '<span class="price">' + escapeHTML(e.cost) + '</span>' : '';
       var desc = e.desc ? '<p class="event-desc">' + formatRowDesc(e.desc) + '</p>' : '';
       var hasAsset = !!e.asset;
@@ -452,7 +453,7 @@ function renderEventsPage() {
         '<div class="event-card-top"><h3>' + escapeHTML(e.name) + '</h3>' + cost + '</div>' +
         '<div class="event-meta">' + escapeHTML(e.date) + ' · ' + escapeHTML(e.time) + ' · ' + escapeHTML(e.venue) + '</div>' +
         desc +
-        '<a href="' + waLink + '" target="_blank" rel="noopener" class="btn event-cta">Find out more</a>' +
+        '<a href="' + ctaLink + '" target="_blank" rel="noopener" class="btn event-cta">' + ctaLabel + '</a>' +
         '</div>' +
         '</article>';
     }).join('');
