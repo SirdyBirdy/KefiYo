@@ -12,12 +12,14 @@ kefiyo-site/
 ├── index.html              ← homepage — page structure only, no text
 ├── menu.html                ← full menu page — page structure only, no text
 ├── events.html               ← events page — page structure only, no text
+├── press.html                ← press page — page structure only, no text
 ├── css/
 │   └── style.css            ← all styling (colors, spacing, layout)
 ├── js/
 │   ├── content.js            ← ALL homepage text, menu teaser, prices, gift card, business info
 │   ├── menu-content.js       ← ALL full-menu-page text, categories, items, prices
 │   ├── events-content.js     ← ALL events — add new ones here
+│   ├── press-content.js      ← ALL press coverage (homepage section + press page)
 │   └── script.js             ← renders every content file onto the page + interactions
 └── assets/
     ├── images/
@@ -88,6 +90,15 @@ generated automatically from the event's `name` plus the phone number in
 code first, no `+`, spaces, or dashes (a UK mobile `07123 456789` becomes
 `"447123456789"`). Until that field is filled in, the buttons won't have
 anywhere to send people.
+
+### Press coverage → `js/press-content.js`
+Powers the homepage "In the press" section and `press.html`. To add new
+coverage, copy a `{ ... }` line, paste it at the **top** of the `items`
+list (newest first — nothing is auto-sorted) and change the values. Add
+`featured: true` to put it on the homepage: the first featured item is the
+big card and the next three sit beside it. `type` is `"press"` (news,
+blogs, magazines) or `"social"` (Instagram/TikTok) and drives the filter
+tabs on the press page. Full field notes are at the top of the file.
 
 ### Gift cards
 Gift purchases go through Square's checkout, not this website — so the gift

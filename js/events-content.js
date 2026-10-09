@@ -23,7 +23,15 @@
                     or they'll end up under separate filter tabs.
      - time        (required) — e.g. "6:00 PM – 8:00 PM"
      - cost        (optional) — e.g. "£10 per person". Leave out
-                    entirely (delete the line) for free events.
+                    entirely (delete the line) for free events. Keep
+                    this short (just the headline price) — it's shown
+                    in the big decorative font, so a full sentence
+                    will look cramped and can overflow the card.
+     - costNote    (optional) — for extra pricing detail that doesn't
+                    fit in "cost", e.g. an early-bird deadline or a
+                    "per person" note. Shown as a small line under the
+                    date/time/venue, in normal (non-decorative) text,
+                    so it can be as long as it needs to be.
      - desc        (optional) — a sentence or a few about the event.
                     Use \n inside the text wherever you want a line
                     break (see README for details).
@@ -66,7 +74,8 @@ var EVENTS_PAGE_CONTENT = {
       date: "Sunday 18th October 2026",
       month: "October 2026",
       time: "10:30 AM – 2:00 PM",
-      cost: "£45 · Early bird £39.99 until 27th September",
+      cost: "£45",
+      costNote: "Early bird £39.99 until 27th September",
       desc: "Join Auri Pilates x @missholistic_pilates for a magical morning of movement, creativity, wellness and a little Halloween magic. ✨\nCome dressed in your favourite Halloween-inspired look and spend the day moving, creating, connecting and getting into the seasonal spirit with a beautiful community of women.\n\n🖤 What's included\n✨ Reformer Pilates — an energising session suitable for all levels\n🎃 Pumpkin Carving — carve your very own Halloween pumpkin, the perfect autumn activity with the girls\n🔮 Astrology Reading — a special reading from @petalsofneptune\n🍵 Matcha & Açaí — refuel after Pilates with a matcha and açaí bowl from Kefiyo\n\nYour ticket includes the full retreat experience — reformer Pilates, pumpkin carving, astrology reading + refreshments. ✨\n\nCome for the Pilates. Stay for the pumpkins, stars & matcha.\n\nSpaces are limited — grab your ticket and join us for an unforgettable Halloween afternoon.",
       ticketUrl: "https://app.glofox.com/portal/#/branch/69fb159853175ce93c086215/courses/6aa4fadd201b431b460b4abf/schedule/1789196951964/book",
       asset: "assets/events/halloween-retreat.jpg"

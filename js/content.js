@@ -25,6 +25,7 @@ var CONTENT = {
       { label: "Flavours", href: "index.html#flavours" },
       { label: "Menu", href: "menu.html" },
       { label: "Events", href: "events.html" },
+      { label: "Press", href: "press.html" },
       { label: "Our Story", href: "index.html#story" },
       { label: "Gift Cards", href: "index.html#gift" }
     ],
@@ -117,14 +118,14 @@ var CONTENT = {
     ],
     items: [
       /* Froyo — full lineup, matching js/menu-content.js */
-      { name: "Flavours", tags: ["Natural", "Caramelised Banana", "Biscoff", "Tiramisu", "Rhubarb", "Mango"], category: "froyo" },
-      { name: "Kefiyo Special Flavour", desc: "Pistachio", sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }], highlight: true, category: "froyo" },
+      { name: "Dietary Notes", desc: "Gluten free, nut free and contains soya.", category: "froyo" },
+      { name: "Flavours", tags: ["Plain", "Mango", "Pomegranate", "Tiramisu", "Butterscotch", "Apple Pie", "Passion Fruit"], category: "froyo" },
+      { name: "Kefiyo Special Flavour", desc: "Pistachio (contains nuts)", sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }], highlight: true, category: "froyo" },
       { name: "Vegan Flavour of the Week", tags: ["Coconut"], price: "+£0.49", category: "froyo" },
       { name: "Small Cup", desc: "Unlimited toppings", price: "£4.49", category: "froyo" },
       { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49", category: "froyo" },
       { name: "Large Cup", desc: "Unlimited toppings", price: "£6.49", category: "froyo" },
       { name: "Premium Drips", desc: "Nutella, Peanut Butter, Almond Butter, Salted Caramel, Agave Syrup, Honey, Frozen Yogurt, Pistachio", price: "+£0.49", category: "froyo" },
-      { name: "Dietary Notes", desc: "Gluten free and nut free options available. Contains soya.", category: "froyo" },
       /* Açaí */
       { name: "Amazon Energy", badge: "Most loved", desc: "Açaí, banana, mixed berries, granola", price: "£6.99", category: "acai" },
       { name: "The Chill Berry", desc: "Açaí, granola, strawberry, raspberry, goji berry", price: "£6.99", category: "acai" },
@@ -159,10 +160,11 @@ var CONTENT = {
      since only the current + next video are ever loaded at once, this
      stays light on bandwidth no matter how many you add. */
   giveaway: {
-    eyebrow: "Giveaway",
-    heading: "We're giving something away",
-    lede: "Follow along for a chance to win — details in the videos, new drops added as we go.",
+    eyebrow: "Giveaway · Live now",
+    heading: "Win a year of Kefiyo",
+    lede: "10 winners. A free froyo every month for 12 months. Follow @kefi.yo, repost the giveaway post & tag a friend to enter — ends 24th October.",
     button: { label: "Enter on Instagram", href: "https://www.instagram.com/kefi.yo" },
+    note: "UK, 18+. T&Cs apply.",
     videos: [
       "assets/videos/giveaway_1.mp4",
       "assets/videos/giveaway_2.mp4",

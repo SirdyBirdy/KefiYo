@@ -218,6 +218,91 @@ function renderMenu() {
   }
 }
 
+/* Press: one card's markup. Social items show a short note instead of
+   a headline. Opens in a new tab. */
+function pressCardHTML(it) {
+  var body = it.title
+    ? '<span class="press-title">' + escapeHTML(it.title) + '</span>'
+    : '<span class="press-title is-note">' + escapeHTML(it.note) + '</span>';
+  return '<a class="press-card" data-type="' + escapeHTML(it.type) + '" href="' + escapeHTML(it.url) +
+    '" target="_blank" rel="noopener noreferrer">' +
+    '<span class="press-outlet">' + escapeHTML(it.outlet) + '</span>' +
+    body +
+    '<span class="press-date">' + escapeHTML(it.date) + ' ↗</span>' +
+    '</a>';
+}
+
+/* Homepage "In the press" teaser: first featured item = big card,
+   next three featured items = smaller cards beside it. */
+function renderPressTeaser() {
+  var headEl = document.getElementById('pressHead');
+  var teaserEl = document.getElementById('pressTeaser');
+  var footEl = document.getElementById('pressFoot');
+  if (typeof PRESS_CONTENT === 'undefined' || !teaserEl) return;
+  var p = PRESS_CONTENT;
+  var featured = p.items.filter(function (it) { return it.featured; });
+  if (!featured.length) return;
+  var lead = featured[0];
+  var side = featured.slice(1, 4);
+
+  if (headEl) {
+    headEl.innerHTML =
+      '<span class="eyebrow">' + escapeHTML(p.teaser.eyebrow) + '</span>' +
+      '<h2>' + escapeHTML(p.teaser.heading) + '</h2>' +
+      '<p class="lede">' + escapeHTML(p.teaser.lede) + '</p>';
+  }
+  teaserEl.innerHTML =
+    '<a class="press-feature" href="' + escapeHTML(lead.url) + '" target="_blank" rel="noopener noreferrer">' +
+      '<div><span class="press-outlet">' + escapeHTML(lead.outlet) + '</span>' +
+      '<h3>' + escapeHTML(lead.title) + '</h3></div>' +
+      '<div class="press-feature-foot"><span class="press-date">' + escapeHTML(lead.date) + '</span>' +
+      '<span class="btn">Read the article</span></div>' +
+    '</a>' +
+    '<div class="press-side">' + side.map(pressCardHTML).join('') + '</div>';
+  if (footEl) {
+    footEl.innerHTML = '<a href="' + escapeHTML(p.teaser.href) + '" class="btn ghost">' + escapeHTML(p.teaser.buttonLabel) + '</a>';
+  }
+}
+
+/* press.html: header, filter tabs (All / News & blogs / Social & creators),
+   and every item in the order listed in press-content.js. */
+function renderPressPage() {
+  var heroEl = document.getElementById('pressHero');
+  var filterEl = document.getElementById('pressFilter');
+  var listEl = document.getElementById('pressList');
+  if (typeof PRESS_CONTENT === 'undefined' || (!heroEl && !listEl)) return;
+  var p = PRESS_CONTENT;
+  if (heroEl) {
+    heroEl.innerHTML =
+      '<span class="eyebrow">' + escapeHTML(p.hero.eyebrow) + '</span>' +
+      '<h1>' + escapeHTML(p.hero.heading) + '</h1>' +
+      '<p class="lede" style="text-align:center">' + escapeHTML(p.hero.lede) + '</p>';
+  }
+  if (filterEl) {
+    filterEl.innerHTML =
+      '<span class="chip on" data-type="all">All</span>' +
+      '<span class="chip" data-type="press">News &amp; blogs</span>' +
+      '<span class="chip" data-type="social">Social &amp; creators</span>';
+  }
+  if (listEl) listEl.innerHTML = p.items.map(pressCardHTML).join('');
+}
+
+function wirePressFilter() {
+  var filterEl = document.getElementById('pressFilter');
+  var listEl = document.getElementById('pressList');
+  if (!filterEl || !listEl) return;
+  filterEl.addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    filterEl.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('on'); });
+    chip.classList.add('on');
+    var type = chip.dataset.type;
+    listEl.querySelectorAll('.press-card').forEach(function (card) {
+      card.classList.toggle('is-hidden', !(type === 'all' || card.dataset.type === type));
+    });
+  });
+}
+
 function renderGiveaway() {
   var stackEl = document.getElementById('giveawayStack');
   var textEl = document.getElementById('giveawayText');
@@ -235,11 +320,12 @@ function renderGiveaway() {
     var button = g.button && g.button.label
       ? '<a href="' + g.button.href + '" target="_blank" rel="noopener" class="btn">' + escapeHTML(g.button.label) + '</a>'
       : '';
+    var note = g.note ? '<p class="giveaway-note">' + escapeHTML(g.note) + '</p>' : '';
     textEl.innerHTML =
       '<span class="eyebrow">' + escapeHTML(g.eyebrow) + '</span>' +
       '<h2>' + escapeHTML(g.heading) + '</h2>' +
       '<p class="lede">' + escapeHTML(g.lede) + '</p>' +
-      button;
+      button + note;
   }
 }
 
@@ -437,6 +523,7 @@ function renderEventsPage() {
       var ctaLink = e.ticketUrl || waLink;
       var ctaLabel = e.ticketUrl ? 'Get tickets' : 'Find out more';
       var cost = e.cost ? '<span class="price">' + escapeHTML(e.cost) + '</span>' : '';
+      var costNote = e.costNote ? '<div class="event-cost-note">' + escapeHTML(e.costNote) + '</div>' : '';
       var desc = e.desc ? '<p class="event-desc">' + formatRowDesc(e.desc) + '</p>' : '';
       var hasAsset = !!e.asset;
       var isVideo = hasAsset && /\.(mp4|webm|mov|m4v)$/i.test(e.asset);
@@ -452,6 +539,7 @@ function renderEventsPage() {
         '<div class="event-card-body">' +
         '<div class="event-card-top"><h3>' + escapeHTML(e.name) + '</h3>' + cost + '</div>' +
         '<div class="event-meta">' + escapeHTML(e.date) + ' · ' + escapeHTML(e.time) + ' · ' + escapeHTML(e.venue) + '</div>' +
+        costNote +
         desc +
         '<a href="' + ctaLink + '" target="_blank" rel="noopener" class="btn event-cta">' + ctaLabel + '</a>' +
         '</div>' +
@@ -847,6 +935,8 @@ document.addEventListener('DOMContentLoaded', function () {
   renderMenu();
   renderGiveaway();
   renderInstagram();
+  renderPressTeaser();
+  renderPressPage();
   renderGift();
   renderFinal();
   renderIsland();
@@ -858,6 +948,7 @@ document.addEventListener('DOMContentLoaded', function () {
   wireMenuChips();
   wireFullMenuChips();
   wireEventsFilter();
+  wirePressFilter();
   wireGiftSlider();
   initLazyVideos();
   initGiveawayCarousel();

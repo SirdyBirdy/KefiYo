@@ -34,16 +34,15 @@ var MENU_PAGE_CONTENT = {
     {
       name: "Frozen Yogurt",
       icon: "froyo",
-      note: "Creamy, tangy frozen yogurt — the KefiYo way.",
+      note: "Creamy, tangy frozen yogurt — the KefiYo way.\nGluten free, nut free and contains soya.",
       items: [
-        { name: "Flavours", tags: ["Natural", "Caramelised Banana", "Rhubarb", "Orange Chocolate", "Tiramisu", "Apple Pie", "Biscoff"] },
-        { name: "Flavour of the Day", desc: "Pistachio", sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }], highlight: true },
+        { name: "Flavours", tags: ["Plain", "Mango", "Pomegranate", "Tiramisu", "Butterscotch", "Apple Pie", "Passion Fruit"] },
+        { name: "Kefiyo Special Flavour", desc: "Pistachio (contains nuts)", sizes: [{ label: "Medium", price: "£6.99" }, { label: "Large", price: "£7.99" }], highlight: true },
         { name: "Vegan Flavour of the Week", tags: ["Coconut"], price: "+£0.49" },
         { name: "Small Cup", desc: "Unlimited toppings", price: "£4.49" },
         { name: "Medium Cup", desc: "Unlimited toppings", price: "£5.49" },
         { name: "Large Cup", desc: "Unlimited toppings", price: "£6.49" },
-        { name: "Premium Drips", desc: "Nutella, Peanut Butter, Almond Butter, Salted Caramel, Agave Syrup, Honey, Frozen Yogurt, Pistachio", price: "+£0.49" },
-        { name: "Dietary Notes", desc: "Gluten free and nut free options available. Contains soya." }
+        { name: "Premium Drips", desc: "Nutella, Peanut Butter, Almond Butter, Salted Caramel, Agave Syrup, Honey, Frozen Yogurt, Pistachio", price: "+£0.49" }
       ]
     },
     {
